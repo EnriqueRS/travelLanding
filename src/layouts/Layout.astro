@@ -1,0 +1,63 @@
+---
+import "../styles/global.css"
+const {
+  title = "Viaje a China 2026",
+  description = "Itinerario, vuelos, mapa y cuenta atrás",
+  lang = "es",
+} = Astro.props as {
+  title?: string
+  description?: string
+  lang?: string
+}
+---
+
+<!doctype html>
+<html
+  lang={lang}
+  class="min-h-full bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+    />
+    <meta name="theme-color" content="#ef4444" />
+    <!-- Prefetch blog logo -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+    />
+    <script>
+      {
+        ;`
+      // Set initial theme from localStorage or system
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefersDark ? 'dark' : 'light');
+        const root = document.documentElement;
+        if (theme === 'dark') {
+          root.classList.add('dark');
+          root.setAttribute('data-theme', 'dark');
+        } else {
+          root.classList.remove('dark');
+          root.setAttribute('data-theme', 'light');
+        }
+      })();
+      `
+      }
+    </script>
+  </head>
+  <body class="antialiased min-h-full">
+    <slot />
+  </body>
+</html>

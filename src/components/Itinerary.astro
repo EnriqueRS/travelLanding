@@ -1,0 +1,55 @@
+---
+const steps = [
+	{
+		city: "Pekín (Beijing)",
+		days: "5 días",
+		special: "Visita a Universal Studios Beijing",
+		must: ["Gran Muralla China", "Ciudad Prohibida", "Templo del Cielo"],
+		transfer: "Tren a Xi'an: 4–5 horas"
+	},
+	{
+		city: "Xi'an",
+		days: "1 día",
+		must: ["Guerreros de Terracota", "Muralla de la Ciudad", "Barrio Musulmán"],
+		transfer: "Tren a Chongqing: 6 horas"
+	},
+	{
+		city: "Chongqing",
+		days: "2 días",
+		special: "Escapada a Zona de montaña",
+		must: ["Cueva de Hongya (Hongyadong)", "Museo de las Tres Gargantas", "Jiefangbei CBD"],
+		transfer: "Avión a Shanghái: 2 horas"
+	},
+	{
+		city: "Shanghái",
+		days: "2 días",
+		must: ["El Bund (skyline)", "Torre de Shanghái", "Jardín Yu", "Calle Nanjing"]
+	}
+];
+---
+<section id="itinerario" class="container mx-auto px-4 py-12">
+	<h2 class="text-2xl sm:text-3xl font-semibold mb-6">Itinerario paso a paso</h2>
+	<ol class="grid md:grid-cols-2 gap-6 counter-reset-[step]">
+		{steps.map((s, idx) => (
+			<li class="relative rounded-xl border border-slate-200 dark:border-slate-800 p-5 bg-white/60 dark:bg-slate-900/60 backdrop-blur">
+				<div class="absolute -top-3 -left-3 h-8 w-8 rounded-full bg-rose-600 text-white flex items-center justify-center text-sm font-semibold shadow">
+					{idx + 1}
+				</div>
+				<div class="flex items-baseline justify-between gap-4">
+					<h3 class="text-xl font-medium">{s.city}</h3>
+					<span class="text-sm opacity-80">{s.days}</span>
+				</div>
+				{ s.special && <p class="mt-2 text-sm"><span class="font-medium">Actividad especial:</span> {s.special}</p> }
+				<div class="mt-3">
+					<p class="text-sm font-medium">Imprescindibles:</p>
+					<ul class="mt-1 list-disc list-inside space-y-1 text-sm">
+						{s.must.map((m) => <li>{m}</li>)}
+					</ul>
+				</div>
+				{ s.transfer && <p class="mt-3 text-sm opacity-80">{s.transfer}</p> }
+			</li>
+		))}
+	</ol>
+</section>
+
+

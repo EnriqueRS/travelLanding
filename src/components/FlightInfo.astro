@@ -1,0 +1,77 @@
+---
+const flights = [
+  {
+    title: "Ida",
+    segments: [
+      {
+        title: "Málaga (AGP) → Múnich (MUC)",
+        detail: "dom 29 mar 2026 14:35 – 17:30 (CEST)",
+        note: "Escala",
+      },
+      {
+        title: "Múnich (MUC) → Pekín (PEK)",
+        detail: "dom 29 mar 19:40 – lun 30 mar 2026 05:45 (CEST)",
+      },
+    ],
+  },
+  {
+    title: "Vuelta",
+    segments: [
+      {
+        title: "Shanghái (PVG) → Zúrich (ZRH)",
+        detail: "jue 9 abr 2026 04:05 – 18:15 (CEST)",
+        note: "Escala",
+      },
+      {
+        title: "Zúrich (ZRH) → Málaga (AGP)",
+        detail: "jue 9 abr 21:30 – vie 10 abr 2026 00:10 (CEST)",
+      },
+    ],
+  },
+]
+---
+
+<section id="vuelos" class="container mx-auto px-4 py-12">
+  <h2 class="text-2xl sm:text-3xl font-semibold mb-6">Vuelos</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    {
+      flights.map((group) => (
+        <div class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 bg-white/60 dark:bg-slate-900/60 backdrop-blur">
+          <h3 class="text-xl font-medium mb-4">{group.title}</h3>
+          <ol class="space-y-3">
+            {group.segments.map((s) => (
+              <li class="grid grid-cols-[1fr_auto] items-center gap-2">
+                <div>
+                  <div class="font-medium">{s.title}</div>
+                  <div class="text-sm opacity-80">{s.detail}</div>
+                </div>
+                {s.note && (
+                  <span class="text-xs px-2 py-1 rounded-md bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">
+                    {s.note}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))
+    }
+  </div>
+  <p class="mt-3 text-sm opacity-70">Hora en CEST</p>
+  <hr class="my-10 border-slate-200 dark:border-slate-800" />
+  <div class="text-center">
+    <a
+      href="https://www.chijako.com"
+      target="_blank"
+      rel="noreferrer"
+      class="inline-flex items-center gap-3 rounded-lg px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+    >
+      <img
+        alt="Chijako"
+        src="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+        class="h-6 w-auto"
+      />
+      <span>Blog del viaje: chijako.com</span>
+    </a>
+  </div>
+</section>

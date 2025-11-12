@@ -1,16 +1,134 @@
 ---
-
+import Layout from "../layouts/Layout.astro"
+import ThemeToggle from "../components/ThemeToggle.tsx"
+import Countdown from "../components/Countdown.tsx"
+import TripMap from "../components/Map.tsx"
+import FlightInfo from "../components/FlightInfo.astro"
+import Itinerary from "../components/Itinerary.astro"
+import Expenses from "../components/Expenses.astro"
+import ExpensesToggle from "../components/ExpensesToggle.tsx"
+const tripStartISO = "2026-03-29T14:35:00+02:00"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+  title="Viaje a China 2026"
+  description="Landing del viaje con itinerario, vuelos, mapa y cuenta atrás"
+  lang="es"
+>
+  <header
+    class="container mx-auto px-4 py-4 flex items-center justify-between gap-4"
+  >
+    <a href="https://www.chijako.com" class="flex items-center gap-3">
+      <img
+        alt="Chijako"
+        src="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+        class="h-8 w-auto"
+      />
+      <span class="text-lg font-semibold tracking-tight"
+        >Viaje a China 2026</span
+      >
+    </a>
+    <nav class="flex items-center gap-3">
+      <!-- <ThemeToggle client:load /> -->
+      <ExpensesToggle client:load />
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="container mx-auto px-4 pt-8 pb-12">
+      <div class="grid md:grid-cols-1 gap-8 items-center">
+        <div class="space-y-4">
+          <h1 class="text-3xl sm:text-5xl font-bold leading-tight">
+            China 2026: Pekín, Xi'an, Chongqing y Shanghái
+          </h1>
+          <p class="text-base sm:text-lg opacity-90">
+            Explora los imprescindibles, consulta los vuelos, sigue el mapa y
+            prepárate con la cuenta atrás.
+          </p>
+          <div class="flex flex-wrap gap-4 items-center">
+            <Countdown
+              client:visible
+              targetISO={tripStartISO}
+              label="Despegamos en"
+            />
+            <a
+              href="#itinerario"
+              class="inline-flex items-center gap-2 rounded-md bg-rose-600 text-white px-4 py-2 hover:bg-rose-700 transition-colors"
+              >Ver itinerario</a
+            >
+            <a
+              href="#mapa"
+              class="inline-flex items-center gap-2 rounded-md border border-slate-300 dark:border-slate-700 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >Ver mapa</a
+            >
+          </div>
+        </div>
+        <!-- <div
+          class="rounded-xl border border-slate-200 dark:border-slate-800 p-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur"
+        >
+          <TripMap client:only="react" />
+        </div> -->
+      </div>
+    </section>
+
+    <Expenses />
+    <FlightInfo />
+    <Itinerary />
+
+    <section id="mapa" class="container mx-auto px-4 py-12">
+      <h2 class="text-2xl sm:text-3xl font-semibold mb-6">Mapa del viaje</h2>
+      <TripMap client:only="react" />
+      <p class="mt-3 text-sm opacity-70">
+        La ruta muestra los principales puntos y conexiones previstas.
+      </p>
+    </section>
+
+    <section class="container mx-auto px-4 py-12">
+      <h2 class="text-2xl sm:text-3xl font-semibold mb-6">Consejos útiles</h2>
+      <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+        <li
+          class="rounded-xl border border-slate-200 dark:border-slate-800 p-4"
+        >
+          Tarjeta eSIM internacional para datos
+        </li>
+        <li
+          class="rounded-xl border border-slate-200 dark:border-slate-800 p-4"
+        >
+          VPN fiable para apps occidentales
+        </li>
+        <li
+          class="rounded-xl border border-slate-200 dark:border-slate-800 p-4"
+        >
+          WeChat/Alipay para pagos locales
+        </li>
+        <li
+          class="rounded-xl border border-slate-200 dark:border-slate-800 p-4"
+        >
+          Traductor offline y mapas sin conexión
+        </li>
+        <li
+          class="rounded-xl border border-slate-200 dark:border-slate-800 p-4"
+        >
+          Adaptores de corriente compatibles
+        </li>
+        <li
+          class="rounded-xl border border-slate-200 dark:border-slate-800 p-4"
+        >
+          Efectivo para pequeños comercios
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="container mx-auto px-4 py-10 text-sm opacity-80">
+    <p>
+      © 2026 Viaje a China — Inspirado por <a
+        class="underline underline-offset-4"
+        href="https://www.chijako.com"
+        target="_blank"
+        rel="noreferrer">chijako.com</a
+      >
+    </p>
+  </footer>
+</Layout>
