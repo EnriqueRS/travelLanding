@@ -194,9 +194,11 @@ const chartColors = categoryStats.map((cat) => cat.color)
                       <span class="text-sm font-semibold">
                         {formatEUR(cat.total)}
                       </span>
-                      <span class="text-xs text-slate-500 dark:text-slate-400 transition-transform duration-200 group-open:rotate-180">
-                        ▾
-                      </span>
+                      {hasItems ? (
+                        <span class="text-xs text-slate-500 dark:text-slate-400 transition-transform duration-200 group-open:rotate-180">
+                          ▾
+                        </span>
+                      ) : null}
                     </div>
                   </summary>
                   {hasItems ? (

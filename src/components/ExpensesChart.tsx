@@ -51,12 +51,7 @@ export default function ExpensesChart(props: ExpensesChartProps): JSX.Element {
 				}
 			},
 			fill: {
-				type: "gradient",
-				gradient: {
-					type: "diagonal1",
-					opacityFrom: 0.9,
-					opacityTo: 0.8
-				}
+				type: "solid",
 			},
 			legend: {
 				show: false
