@@ -31,7 +31,7 @@ jobs:
             echo "dist directory not found; aborting"
             exit 1
           fi
-          sudo mkdir -p /docker/staticweb
-          sudo rm -rf /docker/staticweb/*
-          sudo cp -a dist/. /docker/staticweb/
+          mkdir -p /docker/staticweb
+          rm -rf /docker/staticweb/*
+          cp -a dist/. /docker/staticweb/
         shell: bash
