@@ -1,0 +1,37 @@
+name: Build and copy dist to /docker/staticweb
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-copy:
+    name: Build and copy
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Copy dist to /docker/staticweb
+        run: |
+          if [ ! -d dist ]; then
+            echo "dist directory not found; aborting"
+            exit 1
+          fi
+          sudo mkdir -p /docker/staticweb
+          sudo rm -rf /docker/staticweb/*
+          sudo cp -a dist/. /docker/staticweb/
+        shell: bash
