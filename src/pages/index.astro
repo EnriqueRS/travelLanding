@@ -87,7 +87,31 @@ const tripStartISO = "2026-03-29T14:35:00+01:00"
 
     <section id="mapa" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl sm:text-3xl font-semibold mb-6">Mapa del viaje</h2>
-      <TripMap client:only="react" />
+      <TripMap
+        client:only="react"
+        hotels={[
+          {
+            name: "Campanile Xi'an Bell Tower Huimin Street",
+            coords: [34.25809125385736, 108.94224182208956],
+            stars: 3,
+          },
+          {
+            name: "Radisson Blu Plaza Chongqing",
+            coords: [29.540026085053196, 106.56556825596465],
+            stars: 5,
+          },
+          {
+            name: "Novotel Atlantis Shanghai ",
+            coords: [31.23964616548379, 121.52502281583718],
+            stars: 4,
+          },
+          {
+            name: "Howard Johnson Paragon",
+            coords: [39.90612556370508, 116.42856501426816],
+            stars: 4,
+          },
+        ]}
+      />
       <p class="mt-3 text-sm opacity-70">
         La ruta muestra los principales puntos y conexiones previstas.
       </p>

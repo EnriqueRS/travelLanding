@@ -41,6 +41,14 @@ const expenses = [
     note: "07/04 → 09/04",
     city: "Shanghái",
   },
+  {
+    name: "Howard Johnson Paragon",
+    category: "Hoteles",
+    amountEUR: 150,
+    status: "CANCELABLE",
+    note: "30/03 → 03/04",
+    city: "Pekín",
+  },
 ]
 const total = expenses.reduce((acc, e) => acc + e.amountEUR, 0)
 const budget = 2000

@@ -8,7 +8,10 @@ type ExpensesChartProps = {
     amountEUR?: number
     city?: string
   }[]
-  categories?: { name: string; color: string }[]
+  categories?: {
+    name: string
+    color: string
+  }[]
 }
 
 export default function DonutChart(props: ExpensesChartProps): JSX.Element {
