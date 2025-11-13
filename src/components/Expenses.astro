@@ -4,21 +4,21 @@ import { StyledEngineProvider } from "@mui/material/styles"
 
 const expenses = [
   {
-    name: "Vuelo (Málaga - Pekín)",
+    name: "Vuelo",
     category: "Vuelos",
     amountEUR: 576.49,
     status: "CONFIRMED",
-    city: null,
+    city: "Málaga - Pekín",
   },
   {
-    name: "Vuelo (Shanghái - Málaga)",
+    name: "Vuelo",
     category: "Vuelos",
     amountEUR: 242.63,
     status: "CONFIRMED",
-    city: null,
+    city: "Shanghái - Málaga",
   },
   {
-    name: "Campanile Xi'an Bell Tower Huimin Street (Xi'an)",
+    name: "Campanile Xi'an Bell Tower Huimin Street",
     category: "Hoteles",
     amountEUR: 17,
     status: "CANCELABLE",
@@ -26,7 +26,7 @@ const expenses = [
     city: "Xi'an",
   },
   {
-    name: "Radisson Blu Plaza (Chongqing)",
+    name: "Radisson Blu Plaza",
     category: "Hoteles",
     amountEUR: 106,
     status: "CANCELABLE",
@@ -34,7 +34,7 @@ const expenses = [
     city: "Chongqing",
   },
   {
-    name: "Novotel Atlantis (Shanghái)",
+    name: "Novotel Atlantis",
     category: "Hoteles",
     amountEUR: 94,
     status: "CANCELABLE",
@@ -242,7 +242,10 @@ const progressStyle =
                       {cat.items.map((item) => (
                         <li class="rounded-lg border border-slate-100 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/60 px-3 py-2">
                           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                            <span class="text-sm font-medium">{item.name}</span>
+                            <span class="text-sm font-medium">
+                              {item.name}
+                              {item.city ? ` (${item.city})` : null}
+                            </span>
                             <div class="flex flex-wrap items-center gap-3 text-xs sm:text-sm">
                               {item.note ? (
                                 <span class="opacity-70">{item.note}</span>
