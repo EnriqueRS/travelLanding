@@ -1,13 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import ThemeToggle from "../components/ThemeToggle.tsx"
 import Countdown from "../components/Countdown.tsx"
 import TripMap from "../components/Map.tsx"
 import FlightInfo from "../components/FlightInfo.astro"
 import Itinerary from "../components/Itinerary.astro"
 import Expenses from "../components/Expenses.astro"
 import ExpensesToggle from "../components/ExpensesToggle.tsx"
-const tripStartISO = "2026-03-29T14:35:00+02:00"
+const tripStartISO = "2026-03-29T14:35:00+01:00"
 ---
 
 <Layout
@@ -64,16 +63,26 @@ const tripStartISO = "2026-03-29T14:35:00+02:00"
             >
           </div>
         </div>
-        <!-- <div
-          class="rounded-xl border border-slate-200 dark:border-slate-800 p-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur"
-        >
-          <TripMap client:only="react" />
-        </div> -->
       </div>
     </section>
 
     <Expenses />
     <FlightInfo />
+    <div class="text-center">
+      <a
+        href="https://www.chijako.com"
+        target="_blank"
+        rel="noreferrer"
+        class="inline-flex items-center gap-3 rounded-lg px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+      >
+        <img
+          alt="Chijako"
+          src="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+          class="h-6 w-auto"
+        />
+        <span>Blog del viaje</span>
+      </a>
+    </div>
     <Itinerary />
 
     <section id="mapa" class="container mx-auto px-4 py-12">

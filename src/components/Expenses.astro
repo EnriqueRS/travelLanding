@@ -1,12 +1,21 @@
 ---
-import ExpensesChart from "./ExpensesChart.tsx"
+import DonutChart from "./DonutChart.tsx"
+import { StyledEngineProvider } from "@mui/material/styles"
 
 const expenses = [
   {
-    name: "Vuelo (Málaga - Pekín; Shanghái - Málaga)",
+    name: "Vuelo (Málaga - Pekín)",
     category: "Vuelos",
-    amountEUR: 819.12,
+    amountEUR: 576.49,
     status: "CONFIRMED",
+    city: null,
+  },
+  {
+    name: "Vuelo (Shanghái - Málaga)",
+    category: "Vuelos",
+    amountEUR: 242.63,
+    status: "CONFIRMED",
+    city: null,
   },
   {
     name: "Campanile Xi'an Bell Tower Huimin Street (Xi'an)",
@@ -14,23 +23,40 @@ const expenses = [
     amountEUR: 17,
     status: "CANCELABLE",
     note: "03/04/2026",
+    city: "Xi'an",
   },
   {
-    name: "Radisson Blu Plaza Chongqing (Chongqing)",
+    name: "Radisson Blu Plaza (Chongqing)",
     category: "Hoteles",
     amountEUR: 106,
     status: "CANCELABLE",
     note: "04/04 → 07/04",
+    city: "Chongqing",
+  },
+  {
+    name: "Novotel Atlantis (Shanghái)",
+    category: "Hoteles",
+    amountEUR: 94,
+    status: "CANCELABLE",
+    note: "07/04 → 09/04",
+    city: "Shanghái",
   },
 ]
 const total = expenses.reduce((acc, e) => acc + e.amountEUR, 0)
 const budget = 2000
 const percentage = Math.min((total / budget) * 100, 100)
 const remaining = Math.max(budget - total, 0)
-const formatEUR = (amount: number) =>
-  new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(
-    amount
-  )
+const formatEUR = (amount: number) => {
+  // Treat values that are extremely close to integers as integers to avoid
+  // showing unwanted decimals due to floating point math (e.g. 17.00000000002).
+  const isWhole = Math.abs(amount - Math.round(amount)) < 1e-9
+  return new Intl.NumberFormat("es-ES", {
+    style: "currency",
+    currency: "EUR",
+    minimumFractionDigits: isWhole ? 0 : 2,
+    maximumFractionDigits: isWhole ? 0 : 2,
+  }).format(amount)
+}
 const percentageLabel = percentage.toFixed(1)
 const showPercentageInside = percentage > 10
 const remainingClass =
@@ -50,7 +76,11 @@ const categoryPalette = [
     description: "Trenes, taxis, traslados",
     color: "#22c55e",
   },
-  { name: "Hoteles", description: "Alojamientos y Airbnb", color: "#facc15" },
+  {
+    name: "Hoteles",
+    description: "Alojamientos",
+    color: "#facc15",
+  },
   {
     name: "Seguro",
     description: "Coberturas médicas y de viaje",
@@ -58,7 +88,7 @@ const categoryPalette = [
   },
   {
     name: "Experiencias",
-    description: "Entradas, visitas guiadas",
+    description: "Entradas, visitas guiadas, parques de atracciones",
     color: "#ef4444",
   },
 ]
@@ -91,9 +121,6 @@ const progressStyle =
       ? `width: ${percentage}%; background-image: linear-gradient(90deg, ${progressGradientStops}); background-color: ${fallbackFillColor};`
       : `width: ${percentage}%; background-color: ${fallbackFillColor};`
     : "width: 0%;"
-const chartSeries = categoryStats.map((cat) => Number(cat.total.toFixed(2)))
-const chartLabels = categoryStats.map((cat) => cat.name)
-const chartColors = categoryStats.map((cat) => cat.color)
 ---
 
 <section id="expenses" class="container mx-auto px-4 py-12 hidden">
@@ -165,12 +192,13 @@ const chartColors = categoryStats.map((cat) => cat.color)
     </div>
     <div class="grid lg:grid-cols-[320px,1fr] gap-6 items-center">
       <div class="flex items-center justify-center">
-        <ExpensesChart
-          client:only="react"
-          labels={chartLabels}
-          series={chartSeries}
-          colors={chartColors}
-        />
+        <StyledEngineProvider injectFirst>
+          <DonutChart
+            client:only="react"
+            categories={categoryPalette}
+            expenses={expenses}
+          />
+        </StyledEngineProvider>
       </div>
       <ul class="grid sm:grid-cols-2 gap-4">
         {
