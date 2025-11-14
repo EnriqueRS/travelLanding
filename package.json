@@ -30,6 +30,7 @@
     "unsplash-js": "^7.0.0"
   },
   "devDependencies": {
+    "@astrojs/node": "^9.5.0",
     "dotenv": "^17.2.3"
   }
 }

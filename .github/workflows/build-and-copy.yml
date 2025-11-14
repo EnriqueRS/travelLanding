@@ -10,6 +10,9 @@ jobs:
     name: Build and copy
     runs-on: self-hosted
 
+    env:
+      UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -34,4 +37,8 @@ jobs:
           mkdir -p /docker/staticweb
           rm -rf /docker/staticweb/*
           cp -a dist/. /docker/staticweb/
+          cat > /docker/staticweb/.env <<EOT
+UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY}
+EOT
+    EOF
         shell: bash
