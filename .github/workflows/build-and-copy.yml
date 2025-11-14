@@ -27,19 +27,19 @@ jobs:
 
       - name: Build
         run: npm run build
+      - name: Build Docker image
+        run: |
+          # Tag image with repo name and latest
+          docker build -t travelLanding:latest .
+        shell: bash
 
-      - name: Copy dist to /docker/staticweb
+      - name: Stop and remove existing container (if any)
         run: |
-          if [ ! -d dist ]; then
-            echo "dist directory not found; aborting"
-            exit 1
-          fi
-          mkdir -p /docker/staticweb
-          rm -rf /docker/staticweb/*
-      - name: Create .env file
+          docker rm -f travelLanding || true
+        shell: bash
+
+      - name: Run Docker container
         run: |
-          echo "UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY}" >> .env
-      - name: Copy dist to /docker/staticweb
-        run: |
-          cp -a dist/. /docker/staticweb/
+          # Run container in detached mode, expose port 8787 -> container port 4321 (adjust if needed)
+          docker run -d --name china2026TravelBlog -p 8787:4321 -e UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY} travelLanding:latest
         shell: bash
