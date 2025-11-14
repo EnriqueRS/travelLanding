@@ -36,6 +36,10 @@ jobs:
           fi
           mkdir -p /docker/staticweb
           rm -rf /docker/staticweb/*
+      - name: Create .env file
+        run: |
+          echo "UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY}" >> .env
+      - name: Copy dist to /docker/staticweb
+        run: |
           cp -a dist/. /docker/staticweb/
-          cat > /docker/staticweb/.env <<UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY}
         shell: bash
