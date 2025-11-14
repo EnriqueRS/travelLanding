@@ -12,12 +12,14 @@ const CITIES: City[] = [
 
 export default function CityCarousel() {
   const ROTATE_MS = 5000 // rotate every X milliseconds (adjustable)
+  const DEFAULT_BANNER = "/banner_default.png"
 
+  // Show the default banner immediately on first render
   const [index, setIndex] = useState(() =>
     Math.floor(Math.random() * CITIES.length)
   )
-  const [loaded, setLoaded] = useState(false)
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [loaded, setLoaded] = useState(true)
+  const [imageUrl, setImageUrl] = useState<string | null>(DEFAULT_BANNER)
   const [attribution, setAttribution] = useState<{
     author?: string
     authorUrl?: string
@@ -28,6 +30,7 @@ export default function CityCarousel() {
   // Server-side endpoint will call Unsplash with the API key (kept secret).
   async function fetchForCity(cityKey: string) {
     try {
+      // indicate we're loading a new remote image (keep default visible until loaded)
       setLoaded(false)
       const res = await fetch(`/api/unsplash/${cityKey}`)
       if (!res.ok) throw new Error("unsplash fetch failed")
@@ -44,7 +47,8 @@ export default function CityCarousel() {
       )}`
       setImageUrl(fallback)
       setAttribution(null)
-      setLoaded(true)
+      // allow the preloader to handle showing the image or fallback
+      setLoaded(false)
       startRef.current = Date.now()
       setProgress(0)
     }
@@ -52,6 +56,9 @@ export default function CityCarousel() {
 
   // initial fetch
   useEffect(() => {
+    // Start progress from now and keep the default banner visible while the first
+    // remote image is fetched in background.
+    startRef.current = Date.now()
     fetchForCity(CITIES[index].key)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -86,11 +93,25 @@ export default function CityCarousel() {
   // Preload current image to trigger fade-in when it changes
   useEffect(() => {
     if (!imageUrl) return
+
+    // If the image is the default banner, show it immediately without preloading
+    if (imageUrl === DEFAULT_BANNER) {
+      setLoaded(true)
+      return
+    }
+
     setLoaded(false)
     const img = new Image()
     img.src = imageUrl
     img.onload = () => setLoaded(true)
-    img.onerror = () => setLoaded(true)
+    img.onerror = () => {
+      // On failure, fall back to default banner and clear attribution
+      if (imageUrl !== DEFAULT_BANNER) {
+        setImageUrl(DEFAULT_BANNER)
+        setAttribution(null)
+      }
+      setLoaded(true)
+    }
     return () => {
       img.onload = null
       img.onerror = null
@@ -103,7 +124,19 @@ export default function CityCarousel() {
         {/* Background image with fade transition */}
         <img
           src={imageUrl ?? ""}
-          alt={`${CITIES[index].label} - imagen`}
+          alt={
+            imageUrl === DEFAULT_BANNER
+              ? "Banner por defecto"
+              : `${CITIES[index].label} - imagen`
+          }
+          onError={() => {
+            // DOM-level fallback in case image can't be fetched by browser
+            if (imageUrl !== DEFAULT_BANNER) {
+              setImageUrl(DEFAULT_BANNER)
+              setAttribution(null)
+            }
+            setLoaded(true)
+          }}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
@@ -114,10 +147,12 @@ export default function CityCarousel() {
           <div className="w-full bg-linear-to-t from-black/50 to-transparent text-white p-4 sm:p-6">
             <div className="max-w-4xl mx-auto flex items-center justify-between">
               <div>
-                {/* <div className="text-sm opacity-80">Ciudad</div> */}
-                <div className="text-lg sm:text-2xl font-semibold">
-                  {CITIES[index].label}
-                </div>
+                {/* Hide the city label when showing the default banner */}
+                {imageUrl === DEFAULT_BANNER ? null : (
+                  <div className="text-lg sm:text-2xl font-semibold">
+                    {CITIES[index].label}
+                  </div>
+                )}
               </div>
               {/* <div className="text-xs opacity-80">
                 Imágenes aleatorias • cambia cada 3s
