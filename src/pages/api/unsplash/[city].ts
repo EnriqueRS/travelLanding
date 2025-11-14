@@ -85,9 +85,12 @@ export async function GET({ params }: { params: { city: string } }) {
     const contentType = resp.headers.get("content-type") || "image/jpeg";
     const ext = contentType.includes("png") ? ".png" : contentType.includes("webp") ? ".webp" : ".jpg";
     const filename = `${Date.now()}${ext}`;
-    const outPath = path.join(cacheDir, filename);
-    await fs.writeFile(outPath, buffer);
-    await fs.writeFile(path.join("_unsplash_cache", city, filename), buffer);
+  const outPath = path.join(cacheDir, filename);
+  // Write into the public cache directory we ensured above. The previous
+  // duplicate write used a relative path (`_unsplash_cache/...`) and could
+  // fail if the CWD didn't contain that folder; writing once to the
+  // `public/_unsplash_cache/<city>` path is sufficient.
+  await fs.writeFile(outPath, buffer);
 
     // Optionally prune cache if too big (keep last 200)
     const updatedFiles = (await fs.readdir(cacheDir)).filter((f: string) => /\.(jpe?g|png|webp)$/i.test(f));

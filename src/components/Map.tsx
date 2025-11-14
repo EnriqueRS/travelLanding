@@ -21,28 +21,23 @@ type HotelProps = {
 }
 
 type Coords = {
-  name: string
+  name: string | null
   coords: [number, number] // [lat, lng]
 }
 
-const STOPS: Coords[] = [
-  { name: "Málaga (AGP)", coords: [36.6749, -4.4991] },
-  { name: "Múnich (MUC)", coords: [48.3538, 11.7861] },
-  { name: null, coords: [40.0799, 116.6031] },
-  { name: null, coords: [34.3416, 108.9398] },
-  { name: null, coords: [29.563, 106.5516] },
-  { name: "Chengdú", coords: [30.6575, 104.0667] },
-  { name: null, coords: [31.1443, 121.8083] },
-  { name: "Zúrich (ZRH)", coords: [47.4647, 8.5492] },
-  { name: "Málaga (AGP)", coords: [36.6749, -4.4991] },
-]
+const STOPS: Coords[] = []
 
-export default function TripMap(props: { hotels?: HotelProps[] }): JSX.Element {
+export default function TripMap(props: {
+  hotels?: HotelProps[]
+  stops?: Coords[]
+}): JSX.Element {
   // Avoid SSR warnings
   useEffect(() => {}, [])
-  const { hotels = [] } = props
+  const { hotels = [], stops = STOPS } = props
 
-  const path = STOPS.map((s) => s.coords)
+  // Use supplied stops (from config) if provided, otherwise fallback to the
+  // internal STOPS constant.
+  const path = stops.map((s) => s.coords)
 
   return (
     <div className="w-full h-[420px] rounded-xl overflow-hidden ring-1 ring-slate-200 dark:ring-slate-800">
@@ -59,11 +54,13 @@ export default function TripMap(props: { hotels?: HotelProps[] }): JSX.Element {
         />
 
         <Polyline positions={path} color="#ef4444" weight={3} />
-        {STOPS.filter((s) => s.name !== null).map((s, idx) => (
-          <Marker key={idx} position={s.coords} icon={defaultIcon}>
-            <Popup>{s.name}</Popup>
-          </Marker>
-        ))}
+        {stops
+          .filter((s) => s.name !== null)
+          .map((s, idx) => (
+            <Marker key={idx} position={s.coords} icon={defaultIcon}>
+              <Popup>{s.name}</Popup>
+            </Marker>
+          ))}
         {hotels.map((hotel, idx) => {
           const stars = hotel.stars ?? 1
           const iconHtml = `

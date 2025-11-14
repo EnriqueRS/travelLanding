@@ -1,0 +1,352 @@
+{
+  "site": {
+    "title": "China 2026",
+    "subtitle": "Pekín, Xi'an, Chongqing, Chengdú, Shanghái"
+  },
+  "defaultBanner": "/banner_default.png",
+  "cities": [
+    {
+      "key": "beijing",
+      "label": "Pekín",
+      "query": "Beijing"
+    },
+    {
+      "key": "xian",
+      "label": "Xi'an",
+      "query": "Xi'an"
+    },
+    {
+      "key": "chongqing",
+      "label": "Chongqing",
+      "query": "Chongqing"
+    },
+    {
+      "key": "chengdu",
+      "label": "Chengdú",
+      "query": "Chengdu"
+    },
+    {
+      "key": "shanghai",
+      "label": "Shanghai",
+      "query": "Shanghai"
+    }
+  ],
+  "flights": [
+    {
+      "title": "Ida",
+      "segments": [
+        {
+          "title": "Málaga (AGP) → Múnich (MUC)",
+          "detail": "dom 29 mar 2026 14:35 – 17:30 (CEST)",
+          "duration": "2h 55m",
+          "note": "Escala (2h 10m)",
+          "terminal": "2",
+          "company": "Lufthansa",
+          "number": "LH1833",
+          "plane": "Airbus A321",
+          "class": "Económica"
+        },
+        {
+          "title": "Múnich (MUC) → Pekín (PEK)",
+          "detail": "dom 29 mar 19:40 – lun 30 mar 2026 11:45 (CEST)",
+          "duration": "9h 05m",
+          "terminal": "2",
+          "company": "Lufthansa",
+          "number": "LH722",
+          "plane": "Airbus A350-900",
+          "class": "Económica"
+        }
+      ]
+    },
+    {
+      "title": "Vuelta",
+      "segments": [
+        {
+          "title": "Shanghái (PVG) → Zúrich (ZRH)",
+          "detail": "jue 9 abr 2026 04:05 – 18:15 (CEST)",
+          "duration": "11h10m",
+          "note": "Escala (3h 15m)",
+          "terminal": "2",
+          "company": "SWISS",
+          "number": "LX189",
+          "plane": "Airbus A340-300",
+          "class": "Económica"
+        },
+        {
+          "title": "Zúrich (ZRH) → Málaga (AGP)",
+          "detail": "jue 9 abr 21:30 – vie 10 abr 2026 00:10 (CEST)",
+          "duration": "2h 40m",
+          "terminal": null,
+          "company": "SWISS",
+          "number": "LX2120",
+          "plane": "Airbus 321neo",
+          "class": "Económica"
+        }
+      ]
+    },
+    {
+      "title": "Vuelo interno",
+      "segments": [
+        {
+          "title": "Chengdú (CTU) → Shanghái (PVG)",
+          "detail": "mar 7 abr 2026 09:30 – 10:15 (CEST)",
+          "duration": "2h 45m",
+          "terminal": "2",
+          "company": "Spring Airlines",
+          "number": "9C66748",
+          "plane": "Airbus A320",
+          "class": "Económica"
+        }
+      ]
+    }
+  ],
+  "airlineLogos": {
+    "Lufthansa": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Lufthansa_Logo_2018.svg",
+    "SWISS": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Swiss_new.svg",
+    "Spring Airlines": "https://1000logos.net/wp-content/uploads/2023/05/Spring-Airlines-Logo-500x281.png"
+  },
+  "itinerary": [
+    {
+      "city": "Pekín (Beijing)",
+      "days": "5 días",
+      "special": "Visita a Universal Studios Beijing",
+      "must": [
+        "Gran Muralla China",
+        "Ciudad Prohibida",
+        "Templo del Cielo"
+      ],
+      "transfer": "Tren a Xi'an: 4–5 horas"
+    },
+    {
+      "city": "Xi'an",
+      "days": "1 día",
+      "must": [
+        "Guerreros de Terracota",
+        "Muralla de la Ciudad",
+        "Barrio Musulmán"
+      ],
+      "transfer": "Tren a Chongqing: 6 horas"
+    },
+    {
+      "city": "Chongqing",
+      "days": "2 días",
+      "special": "Escapada a Zona de montaña",
+      "must": [
+        "Cueva de Hongya (Hongyadong)",
+        "Museo de las Tres Gargantas",
+        "Jiefangbei CBD"
+      ],
+      "transfer": "Tren a Chengdú: 2 horas"
+    },
+    {
+      "city": "Chengdú",
+      "days": "1 día",
+      "special": "Wenshu Yuan Monastery",
+      "must": [
+        "Parque del Pueblo",
+        "New Century Global Center"
+      ],
+      "transfer": "Avión a Shanghái: 2:45 horas"
+    },
+    {
+      "city": "Shanghái",
+      "days": "2 días",
+      "must": [
+        "El Bund (skyline)",
+        "Torre de Shanghái",
+        "Jardín Yu",
+        "Calle Nanjing"
+      ]
+    }
+  ],
+  "stops": [
+    {
+      "name": "Málaga (AGP)",
+      "coords": [
+        36.6749,
+        -4.4991
+      ]
+    },
+    {
+      "name": "Múnich (MUC)",
+      "coords": [
+        48.3538,
+        11.7861
+      ]
+    },
+    {
+      "name": null,
+      "coords": [
+        40.0799,
+        116.6031
+      ]
+    },
+    {
+      "name": null,
+      "coords": [
+        34.3416,
+        108.9398
+      ]
+    },
+    {
+      "name": null,
+      "coords": [
+        29.563,
+        106.5516
+      ]
+    },
+    {
+      "name": "Chengdú",
+      "coords": [
+        30.6575,
+        104.0667
+      ]
+    },
+    {
+      "name": null,
+      "coords": [
+        31.1443,
+        121.8083
+      ]
+    },
+    {
+      "name": "Zúrich (ZRH)",
+      "coords": [
+        47.4647,
+        8.5492
+      ]
+    },
+    {
+      "name": "Málaga (AGP)",
+      "coords": [
+        36.6749,
+        -4.4991
+      ]
+    }
+  ],
+  "hotels": [
+    {
+      "name": "Campanile Xi'an Bell Tower Huimin Street",
+      "coords": [
+        34.25809125385736,
+        108.94224182208956
+      ],
+      "stars": 3
+    },
+    {
+      "name": "Radisson Blu Plaza Chongqing",
+      "coords": [
+        29.540026085053196,
+        106.56556825596465
+      ],
+      "stars": 5
+    },
+    {
+      "name": "Novotel Atlantis Shanghai",
+      "coords": [
+        31.23964616548379,
+        121.52502281583718
+      ],
+      "stars": 4
+    },
+    {
+      "name": "Howard Johnson Paragon",
+      "coords": [
+        39.90612556370508,
+        116.42856501426816
+      ],
+      "stars": 4
+    }
+  ],
+  "expenses": {
+    "items": [
+      {
+        "name": "Vuelo",
+        "category": "Vuelos",
+        "amountEUR": 576.49,
+        "status": "CONFIRMED",
+        "city": "Málaga - Pekín"
+      },
+      {
+        "name": "Vuelo",
+        "category": "Vuelos",
+        "amountEUR": 242.63,
+        "status": "CONFIRMED",
+        "city": "Shanghái - Málaga"
+      },
+      {
+        "name": "Vuelo interno",
+        "category": "Vuelos",
+        "amountEUR": 150,
+        "status": "CONFIRMED",
+        "city": "Chengdú - Shanghái"
+      },
+      {
+        "name": "Campanile Bell Tower Huimin Street",
+        "category": "Hoteles",
+        "amountEUR": 17,
+        "status": "CANCELABLE",
+        "note": "03/04/2026",
+        "city": "Xi'an"
+      },
+      {
+        "name": "Radisson Blu Plaza",
+        "category": "Hoteles",
+        "amountEUR": 106,
+        "status": "CANCELABLE",
+        "note": "04/04 → 07/04",
+        "city": "Chongqing"
+      },
+      {
+        "name": "Novotel Atlantis",
+        "category": "Hoteles",
+        "amountEUR": 94,
+        "status": "CANCELABLE",
+        "note": "07/04 → 09/04",
+        "city": "Shanghái"
+      },
+      {
+        "name": "Howard Johnson Paragon",
+        "category": "Hoteles",
+        "amountEUR": 150,
+        "status": "CANCELABLE",
+        "note": "30/03 → 03/04",
+        "city": "Pekín"
+      },
+      {
+        "name": "Intermundial",
+        "category": "Seguro",
+        "amountEUR": 54.98,
+        "status": "CONFIRMED"
+      }
+    ],
+    "budget": 2000,
+    "categories": [
+      {
+        "name": "Vuelos",
+        "description": "Billetes de avión y tasas",
+        "color": "#0ea5e9"
+      },
+      {
+        "name": "Transporte",
+        "description": "Trenes, taxis, traslados",
+        "color": "#22c55e"
+      },
+      {
+        "name": "Hoteles",
+        "description": "Alojamientos",
+        "color": "#facc15"
+      },
+      {
+        "name": "Seguro",
+        "description": "Coberturas médicas y de viaje",
+        "color": "#f97316"
+      },
+      {
+        "name": "Experiencias",
+        "description": "Entradas, visitas guiadas, parques de atracciones",
+        "color": "#ef4444"
+      }
+    ]
+  }
+}

@@ -1,47 +1,7 @@
 ---
-const steps = [
-  {
-    city: "Pekín (Beijing)",
-    days: "5 días",
-    special: "Visita a Universal Studios Beijing",
-    must: ["Gran Muralla China", "Ciudad Prohibida", "Templo del Cielo"],
-    transfer: "Tren a Xi'an: 4–5 horas",
-  },
-  {
-    city: "Xi'an",
-    days: "1 día",
-    must: ["Guerreros de Terracota", "Muralla de la Ciudad", "Barrio Musulmán"],
-    transfer: "Tren a Chongqing: 6 horas",
-  },
-  {
-    city: "Chongqing",
-    days: "2 días",
-    special: "Escapada a Zona de montaña",
-    must: [
-      "Cueva de Hongya (Hongyadong)",
-      "Museo de las Tres Gargantas",
-      "Jiefangbei CBD",
-    ],
-    transfer: "Tren a Chengdú: 2 horas",
-  },
-  {
-    city: "Chengdú",
-    days: "1 día",
-    special: "Wenshu Yuan Monastery",
-    must: ["Parque del Pueblo", "New Century Global Center"],
-    transfer: "Avión a Shanghái: 2:45 horas",
-  },
-  {
-    city: "Shanghái",
-    days: "2 días",
-    must: [
-      "El Bund (skyline)",
-      "Torre de Shanghái",
-      "Jardín Yu",
-      "Calle Nanjing",
-    ],
-  },
-]
+import config from "../data/travel.config.json"
+
+const steps = config.itinerary || []
 ---
 
 <section id="itinerario" class="container mx-auto px-4 py-12">

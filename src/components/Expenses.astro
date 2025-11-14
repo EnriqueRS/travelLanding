@@ -2,69 +2,13 @@
 import DonutChart from "./DonutChart.tsx"
 import { StyledEngineProvider } from "@mui/material/styles"
 
-const expenses = [
-  {
-    name: "Vuelo",
-    category: "Vuelos",
-    amountEUR: 576.49,
-    status: "CONFIRMED",
-    city: "Málaga - Pekín",
-  },
-  {
-    name: "Vuelo",
-    category: "Vuelos",
-    amountEUR: 242.63,
-    status: "CONFIRMED",
-    city: "Shanghái - Málaga",
-  },
-  {
-    name: "Vuelo interno",
-    category: "Vuelos",
-    amountEUR: 150,
-    status: "CONFIRMED",
-    city: "Chengdú - Shanghái",
-  },
-  {
-    name: "Campanile Bell Tower Huimin Street",
-    category: "Hoteles",
-    amountEUR: 17,
-    status: "CANCELABLE",
-    note: "03/04/2026",
-    city: "Xi'an",
-  },
-  {
-    name: "Radisson Blu Plaza",
-    category: "Hoteles",
-    amountEUR: 106,
-    status: "CANCELABLE",
-    note: "04/04 → 07/04",
-    city: "Chongqing",
-  },
-  {
-    name: "Novotel Atlantis",
-    category: "Hoteles",
-    amountEUR: 94,
-    status: "CANCELABLE",
-    note: "07/04 → 09/04",
-    city: "Shanghái",
-  },
-  {
-    name: "Howard Johnson Paragon",
-    category: "Hoteles",
-    amountEUR: 150,
-    status: "CANCELABLE",
-    note: "30/03 → 03/04",
-    city: "Pekín",
-  },
-  {
-    name: "Intermundial",
-    category: "Seguro",
-    amountEUR: 54.98,
-    status: "CONFIRMED",
-  },
-]
-const total = expenses.reduce((acc, e) => acc + e.amountEUR, 0)
-const budget = 2000
+import config from "../data/travel.config.json"
+
+// Load expenses from centralized config. The config stores expenses under
+// `config.expenses.items` and also contains `budget` and `categories`.
+const expenses = (config.expenses && config.expenses.items) || []
+const budget = (config.expenses && config.expenses.budget) || 2000
+const total = expenses.reduce((acc, e) => acc + (e.amountEUR || 0), 0)
 const percentage = Math.min((total / budget) * 100, 100)
 const remaining = Math.max(budget - total, 0)
 const formatEUR = (amount: number) => {
@@ -86,7 +30,7 @@ const remainingClass =
     : percentage < 80
       ? "text-amber-600 dark:text-amber-400"
       : "text-rose-500 dark:text-rose-400"
-const categoryPalette = [
+const categoryPalette = (config.expenses && config.expenses.categories) || [
   {
     name: "Vuelos",
     description: "Billetes de avión y tasas",

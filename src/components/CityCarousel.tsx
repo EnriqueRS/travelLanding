@@ -1,22 +1,19 @@
 import React, { useEffect, useMemo, useState, useRef } from "react"
+import config from "../data/travel.config.json"
 
 type City = { key: string; label: string; query: string }
 
-const CITIES: City[] = [
-  { key: "beijing", label: "Pekín", query: "Beijing" },
-  { key: "xian", label: "Xi'an", query: "Xi'an" },
-  { key: "chongqing", label: "Chongqing", query: "Chongqing" },
-  { key: "chengdu", label: "Chengdú", query: "Chengdu" },
-  { key: "shanghai", label: "Shanghai", query: "Shanghai" },
-]
+// Prefer the canonical list from the centralized config. Cast to City[] for
+// typing since JSON imports are untyped at compile time.
+const cities: City[] = (config.cities || []) as City[]
 
 export default function CityCarousel() {
   const ROTATE_MS = 5000 // rotate every X milliseconds (adjustable)
-  const DEFAULT_BANNER = "/banner_default.png"
+  const DEFAULT_BANNER = config.defaultBanner || "/banner_default.png"
 
   // Show the default banner immediately on first render
   const [index, setIndex] = useState(() =>
-    Math.floor(Math.random() * CITIES.length)
+    Math.floor(Math.random() * Math.max(1, cities.length))
   )
   const [loaded, setLoaded] = useState(true)
   const [imageUrl, setImageUrl] = useState<string | null>(DEFAULT_BANNER)
@@ -42,8 +39,9 @@ export default function CityCarousel() {
       setProgress(0)
     } catch (err) {
       // fallback to source.unsplash (no API key) if server or network fails
+      const city = config.cities.find((c: any) => c.key === cityKey)
       const fallback = `https://source.unsplash.com/1200x800/?${encodeURIComponent(
-        CITIES.find((c) => c.key === cityKey)!.query
+        (city && city.query) || cityKey
       )}`
       setImageUrl(fallback)
       setAttribution(null)
@@ -59,7 +57,7 @@ export default function CityCarousel() {
     // Start progress from now and keep the default banner visible while the first
     // remote image is fetched in background.
     startRef.current = Date.now()
-    fetchForCity(CITIES[index].key)
+    fetchForCity(config.cities[index].key)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -68,9 +66,9 @@ export default function CityCarousel() {
   // Rotate every ROTATE_MS milliseconds to a random city
   useEffect(() => {
     const id = setInterval(() => {
-      const next = Math.floor(Math.random() * CITIES.length)
+      const next = Math.floor(Math.random() * config.cities.length)
       setIndex(next)
-      fetchForCity(CITIES[next].key)
+      fetchForCity(config.cities[next].key)
     }, ROTATE_MS)
     return () => clearInterval(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,7 +125,7 @@ export default function CityCarousel() {
           alt={
             imageUrl === DEFAULT_BANNER
               ? "Banner por defecto"
-              : `${CITIES[index].label} - imagen`
+              : `${cities[index]?.label ?? "Ciudad"} - imagen`
           }
           onError={() => {
             // DOM-level fallback in case image can't be fetched by browser
@@ -150,7 +148,7 @@ export default function CityCarousel() {
                 {/* Hide the city label when showing the default banner */}
                 {imageUrl === DEFAULT_BANNER ? null : (
                   <div className="text-lg sm:text-2xl font-semibold">
-                    {CITIES[index].label}
+                    {cities[index]?.label ?? "Ciudad"}
                   </div>
                 )}
               </div>
