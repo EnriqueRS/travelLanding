@@ -47,9 +47,9 @@ export async function GET({ params }: { params: { city: string } }) {
     try {
       if (accessKey) {
         const result = await unsplash.photos.getRandom({ query: city, orientation: "landscape" } as any);
-        console.log("Status Text", (result as any).statusText);
+        console.log("Status Text", (result as any).status);
         console.log("Unsplash API result:", result);
-        if (result && (result as any).statusText === "OK") {
+        if (result && (result as any).status === 200) {
           const photo = (result as any).response ?? result;
           imageUrl = photo?.urls?.regular ?? photo?.urls?.full ?? photo?.urls?.raw ?? null;
           author = photo?.user?.name;
