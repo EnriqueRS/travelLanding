@@ -40,7 +40,6 @@ export default function TripMap(props: { hotels?: HotelProps[] }): JSX.Element {
   // Avoid SSR warnings
   useEffect(() => {}, [])
   const { hotels = [] } = props
-  console.log(hotels)
 
   const path = STOPS.map((s) => s.coords)
 

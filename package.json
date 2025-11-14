@@ -10,14 +10,14 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
     "@iconify/react": "^6.0.2",
+    "@mui/material": "latest",
+    "@mui/x-charts": "latest",
     "@tailwindcss/vite": "^4.1.17",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "@mui/x-charts": "latest",
-    "@emotion/react": "latest",
-    "@emotion/styled": "latest",
-    "@mui/material": "latest",
     "apexcharts": "^5.3.6",
     "astro": "^5.15.5",
     "leaflet": "^1.9.4",
@@ -25,7 +25,11 @@
     "react-apexcharts": "^1.8.0",
     "react-dom": "^19.2.0",
     "react-leaflet": "^5.0.0",
+    "recharts": "^2.4.0",
     "tailwindcss": "^4.1.17",
-    "recharts": "^2.4.0"
+    "unsplash-js": "^7.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.3"
   }
 }

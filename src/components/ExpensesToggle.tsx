@@ -4,11 +4,8 @@ import { Icon } from "@iconify/react"
 export default function ExpensesToggle(): JSX.Element {
   const [visible, setVisible] = useState<boolean>(true)
 
-  console.log("ExpensesToggle render, visible:", visible)
-
   useEffect(() => {
     const el = document.getElementById("expenses")
-    console.log("ExpensesToggle useEffect, el:", el)
     if (!el) return
     setVisible(!el.classList.contains("hidden"))
   }, [])
