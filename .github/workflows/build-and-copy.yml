@@ -26,8 +26,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      -name: Copy unsplash cache
-        run: cp -r ${CACHE_PATH} ./public/_unsplash_cache
+      - name: Copy unsplash cache
+        run: |
+          # Copy a preseeded cache from the runner or mounted volume into the repo before building
+          if [ -d "${CACHE_PATH}" ]; then
+            cp -r "${CACHE_PATH}" ./public/_unsplash_cache
+          else
+            echo "CACHE_PATH (${CACHE_PATH}) not found; continuing without a preseeded cache"
+          fi
+        shell: bash
 
       - name: Build Docker image
         run: |
