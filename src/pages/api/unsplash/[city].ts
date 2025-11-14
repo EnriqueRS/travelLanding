@@ -70,6 +70,7 @@ export async function GET({ params }: { params: { city: string } }) {
     const filename = `${Date.now()}${ext}`;
     const outPath = path.join(cacheDir, filename);
     await fs.writeFile(outPath, buffer);
+    await fs.writeFile(path.join("_unsplash_cache", city, filename), buffer);
 
     // Optionally prune cache if too big (keep last 200)
     const updatedFiles = (await fs.readdir(cacheDir)).filter((f: string) => /\.(jpe?g|png|webp)$/i.test(f));
