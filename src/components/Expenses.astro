@@ -49,6 +49,12 @@ const expenses = [
     note: "30/03 → 03/04",
     city: "Pekín",
   },
+  {
+    name: "Intermundial",
+    category: "Seguro",
+    amountEUR: 54.98,
+    status: "CONFIRMED",
+  },
 ]
 const total = expenses.reduce((acc, e) => acc + e.amountEUR, 0)
 const budget = 2000
@@ -131,7 +137,7 @@ const progressStyle =
     : "width: 0%;"
 ---
 
-<section id="expenses" class="container mx-auto px-4 py-12 hidden">
+<section id="expenses" class="container mx-auto px-4 py-12">
   <h2 class="text-2xl sm:text-3xl font-semibold mb-6">Gastos del viaje</h2>
 
   <!-- Barra de progreso del presupuesto -->
