@@ -30,16 +30,16 @@ jobs:
       - name: Build Docker image
         run: |
           # Tag image with repo name and latest
-          docker build -t travelLanding:latest .
+          docker build -t travel-landing:latest .
         shell: bash
 
       - name: Stop and remove existing container (if any)
         run: |
-          docker rm -f travelLanding || true
+          docker rm -f travel-landing || true
         shell: bash
 
       - name: Run Docker container
         run: |
           # Run container in detached mode, expose port 8787 -> container port 4321 (adjust if needed)
-          docker run -d --name china2026TravelBlog -p 8787:4321 -e UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY} travelLanding:latest
+          docker run -d --name travel-landing -p 8787:4321 -e UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY} travel-landing:latest
         shell: bash
