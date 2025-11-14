@@ -41,5 +41,5 @@ jobs:
       - name: Run Docker container
         run: |
           # Run container in detached mode, expose port 8787 -> container port 4321 (adjust if needed)
-          docker run -d --name travel-landing -p 8787:4321 -e UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY} travel-landing:latest
+          docker run -d --name travel-landing -p 8787:4321 -e UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY} -v ${CACHE_PATH}:/app/public/_unsplash_cache travel-landing:latest
         shell: bash
