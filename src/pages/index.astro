@@ -14,23 +14,22 @@ const tripStartISO = "2026-03-29T14:35:00+01:00"
   description="Landing del viaje con itinerario, vuelos, mapa y cuenta atrás"
   lang="es"
 >
-  <header
-    class="container mx-auto px-4 py-4 flex items-center justify-between gap-4"
-  >
-    <a href="https://www.chijako.com" class="flex items-center gap-3">
-      <img
-        alt="Chijako"
-        src="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
-        class="h-8 w-auto"
-      />
-      <span class="text-lg font-semibold tracking-tight"
-        >Viaje a China 2026</span
-      >
-    </a>
-    <nav class="flex items-center gap-3">
-      <!-- <ThemeToggle client:load /> -->
-      <ExpensesToggle client:load />
-    </nav>
+  <header class="container mx-auto px-4 py-4">
+    <!-- Top row: logo (left) and nav controls (right). On small screens the title is shown below. -->
+    <div class="flex items-center justify-between gap-4">
+      <a href="https://www.chijako.com" class="flex items-center gap-3">
+        <img
+          alt="Chijako"
+          src="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+          class="h-16 w-auto"
+        />
+      </a>
+
+      <nav class="flex items-center gap-3">
+        <!-- <ThemeToggle client:load /> -->
+        <ExpensesToggle client:load />
+      </nav>
+    </div>
   </header>
 
   <main>
