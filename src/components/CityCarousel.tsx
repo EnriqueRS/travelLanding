@@ -6,6 +6,7 @@ const CITIES: City[] = [
   { key: "beijing", label: "Pekín", query: "Beijing" },
   { key: "xian", label: "Xi'an", query: "Xi'an" },
   { key: "chongqing", label: "Chongqing", query: "Chongqing" },
+  { key: "chengdu", label: "Chengdú", query: "Chengdu" },
   { key: "shanghai", label: "Shanghai", query: "Shanghai" },
 ]
 

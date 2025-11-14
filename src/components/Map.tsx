@@ -31,6 +31,7 @@ const STOPS: Coords[] = [
   { name: null, coords: [40.0799, 116.6031] },
   { name: null, coords: [34.3416, 108.9398] },
   { name: null, coords: [29.563, 106.5516] },
+  { name: "Chengdú", coords: [30.6575, 104.0667] },
   { name: null, coords: [31.1443, 121.8083] },
   { name: "Zúrich (ZRH)", coords: [47.4647, 8.5492] },
   { name: "Málaga (AGP)", coords: [36.6749, -4.4991] },

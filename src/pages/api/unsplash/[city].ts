@@ -44,13 +44,30 @@ export async function GET({ params }: { params: { city: string } }) {
     let author: string | undefined;
     let authorUrl: string | undefined;
 
-    if (accessKey) {
-      const result = await unsplash.photos.getRandom({ query: city, orientation: "landscape" } as any);
-      if (result && (result as any).type !== "error") {
-        const photo = (result as any).response ?? result;
-        imageUrl = photo?.urls?.regular ?? photo?.urls?.full ?? photo?.urls?.raw ?? null;
-        author = photo?.user?.name;
-        authorUrl = photo?.user?.links?.html;
+    try {
+      if (accessKey) {
+        const result = await unsplash.photos.getRandom({ query: city, orientation: "landscape" } as any);
+        console.log((result as any).ok);
+        console.log("Unsplash API result:", result);
+        if (result && (result as any).ok) {
+          const photo = (result as any).response ?? result;
+          imageUrl = photo?.urls?.regular ?? photo?.urls?.full ?? photo?.urls?.raw ?? null;
+          author = photo?.user?.name;
+          authorUrl = photo?.user?.links?.html;
+          console.log(imageUrl)
+          console.log(author)
+          console.log(authorUrl)
+          console.log(`Fetched new Unsplash image for city "${city}" by ${author}`);
+        }
+      }
+    } catch (apiErr) {
+      console.error("Unsplash API error:", apiErr);
+      //send from cache
+      if (files.length > 0) {
+        console.log("Serving from cache due to Unsplash API error.");
+        const pick = files[Math.floor(Math.random() * files.length)];
+        const url = `/_unsplash_cache/${city}/${encodeURIComponent(pick)}`;
+        return new Response(JSON.stringify({ url, author: null, authorUrl: null, source: "cache" }), { headers: { "Content-Type": "application/json" } });
       }
     }
 
@@ -89,6 +106,7 @@ export async function GET({ params }: { params: { city: string } }) {
     const publicUrl = `/_unsplash_cache/${city}/${encodeURIComponent(filename)}`;
     return new Response(JSON.stringify({ url: publicUrl, author, authorUrl, source: "api" }), { headers: { "Content-Type": "application/json" } });
   } catch (err: any) {
+    console.error("Error in /api/unsplash/[city]:", err);
     return new Response(JSON.stringify({ error: err?.message ?? String(err) }), { status: 502, headers: { "Content-Type": "application/json" } });
   }
 }

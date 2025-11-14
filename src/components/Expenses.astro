@@ -18,7 +18,14 @@ const expenses = [
     city: "Shanghái - Málaga",
   },
   {
-    name: "Campanile Xi'an Bell Tower Huimin Street",
+    name: "Vuelo interno",
+    category: "Vuelos",
+    amountEUR: 150,
+    status: "CONFIRMED",
+    city: "Chengdú - Shanghái",
+  },
+  {
+    name: "Campanile Bell Tower Huimin Street",
     category: "Hoteles",
     amountEUR: 17,
     status: "CANCELABLE",
@@ -290,6 +297,9 @@ const progressStyle =
             <div class="flex items-start justify-between gap-3">
               <div>
                 <h3 class="font-medium">{expense.name}</h3>
+                <h4 class="text-sm opacity-70">
+                  {expense.city ? expense.city : ""}
+                </h4>
                 <span
                   class="mt-2 inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm"
                   style={`background: ${baseColor}1A; color: ${baseColor}`}
