@@ -242,6 +242,14 @@
       "stars": 5
     },
     {
+      "name": "Xishu Garden Inn",
+      "coords": [
+        30.65851287820856,
+        104.0662045063242
+      ],
+      "stars": 3
+    },
+    {
       "name": "Novotel Atlantis Shanghai",
       "coords": [
         31.23964616548379,
@@ -292,10 +300,18 @@
       {
         "name": "Radisson Blu Plaza",
         "category": "Hoteles",
-        "amountEUR": 106,
+        "amountEUR": 72.50,
         "status": "CANCELABLE",
-        "note": "04/04 → 07/04",
+        "note": "04/04 → 06/04",
         "city": "Chongqing"
+      },
+      {
+        "name": "Xishu Garden Inn",
+        "category": "Hoteles",
+        "amountEUR": 21,
+        "status": "CANCELABLE",
+        "note": "06/04 → 07/04",
+        "city": "Chengdú"
       },
       {
         "name": "Novotel Atlantis",
