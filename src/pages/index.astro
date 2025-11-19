@@ -9,7 +9,7 @@ import Expenses from "../components/Expenses.astro"
 import ExpensesToggle from "../components/ExpensesToggle.tsx"
 import config from "../data/travel.config.json"
 const cfg = config as any
-const tripStartISO = "2026-03-29T14:35:00+02:00"
+const tripStartISO = cfg.trip?.startISO ?? "2026-01-01T00:00:00+02:00"
 
 // Ensure coords are passed as a fixed tuple type [lat, lng] which the
 // TripMap component expects. This converts the generic JSON arrays into
