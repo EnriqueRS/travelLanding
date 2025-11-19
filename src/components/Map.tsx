@@ -18,6 +18,7 @@ type HotelProps = {
   name: string
   coords: [number, number] // [lat, lng]
   stars?: number
+  quality?: number
 }
 
 type Coords = {
@@ -62,7 +63,8 @@ export default function TripMap(props: {
             </Marker>
           ))}
         {hotels.map((hotel, idx) => {
-          const stars = hotel.stars ?? 1
+          // Prefer `quality` (new name) but keep `stars` as a fallback.
+          const stars = hotel.quality ?? hotel.stars ?? 1
           const iconHtml = `
 							<div style="
 								display:inline-flex;
@@ -91,7 +93,7 @@ export default function TripMap(props: {
             <Marker key={idx} position={hotel.coords} icon={icon}>
               <Popup>
                 <strong>{hotel.name}</strong>
-                {hotel.stars ? ` — ${hotel.stars} ★` : ""}
+                {stars ? ` — ${stars} ★` : ""}
               </Popup>
             </Marker>
           )

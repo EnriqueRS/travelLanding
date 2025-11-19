@@ -1,7 +1,12 @@
 {
   "site": {
-    "title": "China 2026",
-    "subtitle": "Pekín, Xi'an, Chongqing, Chengdú, Shanghái"
+    "title": "Viaje a China 2026",
+    "subtitle": "Itinerario, vuelos y gastos",
+    "blog": {
+      "name": "Chijako",
+      "url": "https://www.chijako.com",
+      "logo": "https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+    }
   },
   "defaultBanner": "/banner_default.png",
   "cities": [
@@ -27,7 +32,7 @@
     },
     {
       "key": "shanghai",
-      "label": "Shanghai",
+      "label": "Shanghái",
       "query": "Shanghai"
     }
   ],
@@ -224,48 +229,6 @@
       ]
     }
   ],
-  "hotels": [
-    {
-      "name": "Campanile Xi'an Bell Tower Huimin Street",
-      "coords": [
-        34.25809125385736,
-        108.94224182208956
-      ],
-      "stars": 3
-    },
-    {
-      "name": "Radisson Blu Plaza Chongqing",
-      "coords": [
-        29.540026085053196,
-        106.56556825596465
-      ],
-      "stars": 5
-    },
-    {
-      "name": "Xishu Garden Inn",
-      "coords": [
-        30.65851287820856,
-        104.0662045063242
-      ],
-      "stars": 3
-    },
-    {
-      "name": "Novotel Atlantis Shanghai",
-      "coords": [
-        31.23964616548379,
-        121.52502281583718
-      ],
-      "stars": 4
-    },
-    {
-      "name": "Howard Johnson Paragon",
-      "coords": [
-        39.90612556370508,
-        116.42856501426816
-      ],
-      "stars": 4
-    }
-  ],
   "expenses": {
     "items": [
       {
@@ -295,7 +258,12 @@
         "amountEUR": 150,
         "status": "CANCELABLE",
         "note": "30/03 → 03/04",
-        "city": "Pekín"
+        "city": "Pekín",
+        "coords": [
+          39.90612556370508,
+          116.42856501426816
+        ],
+        "quality": 4
       },
       {
         "name": "Campanile Bell Tower Huimin Street",
@@ -303,15 +271,25 @@
         "amountEUR": 17,
         "status": "CANCELABLE",
         "note": "03/04/2026",
-        "city": "Xi'an"
+        "city": "Xi'an",
+        "coords": [
+          34.25809125385736,
+          108.94224182208956
+        ],
+        "quality": 3
       },
       {
         "name": "Radisson Blu Plaza",
         "category": "Hoteles",
-        "amountEUR": 72.50,
+        "amountEUR": 72.5,
         "status": "CANCELABLE",
         "note": "04/04 → 06/04",
-        "city": "Chongqing"
+        "city": "Chongqing",
+        "coords": [
+          29.540026085053196,
+          106.56556825596465
+        ],
+        "quality": 5
       },
       {
         "name": "Xishu Garden Inn",
@@ -319,7 +297,12 @@
         "amountEUR": 21,
         "status": "CANCELABLE",
         "note": "06/04 → 07/04",
-        "city": "Chengdú"
+        "city": "Chengdú",
+        "coords": [
+          30.65851287820856,
+          104.0662045063242
+        ],
+        "quality": 3
       },
       {
         "name": "Novotel Atlantis",
@@ -327,7 +310,12 @@
         "amountEUR": 94,
         "status": "CANCELABLE",
         "note": "07/04 → 09/04",
-        "city": "Shanghái"
+        "city": "Shanghái",
+        "coords": [
+          31.23964616548379,
+          121.52502281583718
+        ],
+        "quality": 4
       },
       {
         "name": "Intermundial",

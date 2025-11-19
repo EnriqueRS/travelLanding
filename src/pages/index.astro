@@ -8,36 +8,47 @@ import Itinerary from "../components/Itinerary.astro"
 import Expenses from "../components/Expenses.astro"
 import ExpensesToggle from "../components/ExpensesToggle.tsx"
 import config from "../data/travel.config.json"
+const cfg = config as any
 const tripStartISO = "2026-03-29T14:35:00+02:00"
 
 // Ensure coords are passed as a fixed tuple type [lat, lng] which the
 // TripMap component expects. This converts the generic JSON arrays into
 // proper tuples and preserves other hotel properties.
-const hotelsForMap = (config.hotels || []).map((h) => ({
+// Prefer to derive hotels from `expenses.items` (category == 'Hoteles').
+// Fallback to older `cfg.hotels` if no hotel items are present.
+const hotelItems =
+  cfg.expenses && Array.isArray(cfg.expenses.items)
+    ? cfg.expenses.items.filter((it: any) => it.category === "Hoteles")
+    : []
+const rawHotels = hotelItems.length ? hotelItems : cfg.hotels || []
+const hotelsForMap = (rawHotels || []).map((h: any) => ({
   name: h.name,
   coords: [h.coords[0], h.coords[1]] as [number, number],
-  stars: h.stars,
+  // keep `quality` if present (Map component will prefer it), else allow
+  // older `stars` field for backward compatibility
+  quality: h.quality ?? h.stars,
 }))
 
 // Similarly coerce stops into the expected tuple form and pass to TripMap.
-const stopsForMap = ((config as any).stops || []).map((s: any) => ({
+const stopsForMap = (cfg.stops || []).map((s: any) => ({
   name: s.name ?? null,
   coords: [s.coords[0], s.coords[1]] as [number, number],
 }))
 ---
 
 <Layout
-  title={config.site?.title ?? "Travel Landing Page"}
-  description={config.site?.subtitle ?? "Itinerario, vuelos y más"}
+  title={cfg.site?.title ?? "Travel Landing Page"}
+  description={cfg.site?.subtitle ?? "Itinerario, vuelos y más"}
   lang="es"
 >
   <header class="container mx-auto px-4 py-4">
     <!-- Top row: logo (left) and nav controls (right). On small screens the title is shown below. -->
     <div class="flex items-center justify-between gap-4">
-      <a href="https://www.chijako.com" class="flex items-center gap-3">
+      <a href={cfg.site?.blog?.url ?? "#"} class="flex items-center gap-3">
         <img
-          alt="Chijako"
-          src="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+          alt={cfg.site?.blog?.name ?? "Blog"}
+          src={cfg.site?.blog?.logo ??
+            "https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"}
           class="h-16 w-auto"
         />
       </a>
@@ -55,11 +66,11 @@ const stopsForMap = ((config as any).stops || []).map((s: any) => ({
       <div class="grid md:grid-cols-1 gap-8 items-center">
         <div class="space-y-4">
           <h1 class="text-3xl sm:text-5xl font-bold leading-tight">
-            {config.site?.title ?? "Travel Landing Page"}
+            {cfg.site?.title ?? "Travel Landing Page"}
           </h1>
           <p class="text-base sm:text-lg opacity-90">
             {
-              config.site?.subtitle ??
+              cfg.site?.subtitle ??
                 "Explora los imprescindibles, consulta los vuelos, sigue el mapa y prepárate con la cuenta atrás."
             }
           </p>
@@ -93,17 +104,17 @@ const stopsForMap = ((config as any).stops || []).map((s: any) => ({
     <FlightInfo />
     <div class="text-center">
       <a
-        href="https://www.chijako.com"
+        href={cfg.site?.blog?.url ?? "#"}
         target="_blank"
         rel="noreferrer"
         class="inline-flex items-center gap-3 rounded-lg px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
       >
         <img
-          alt="Chijako"
-          src="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
+          alt={cfg.site?.blog?.name ?? "Blog"}
+          src={cfg.site?.blog?.logo ?? ""}
           class="h-6 w-auto"
         />
-        <span>Blog del viaje</span>
+        <span>{cfg.site?.blog?.name ?? "Blog del viaje"}</span>
       </a>
     </div>
     <Itinerary />
@@ -157,9 +168,11 @@ const stopsForMap = ((config as any).stops || []).map((s: any) => ({
     <p>
       © 2026 Travel Landing Page — Inspired by <a
         class="underline underline-offset-4"
-        href="https://www.chijako.com"
+        href={cfg.site?.blog?.url ?? "#"}
         target="_blank"
-        rel="noreferrer">chijako.com</a
+        rel="noreferrer"
+        >{cfg.site?.blog?.name ?? cfg.site?.blog?.url ?? "Reference blog"}</a
+      >
       >
     </p>
   </footer>
