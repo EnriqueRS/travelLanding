@@ -3,68 +3,224 @@ import config from "../data/travel.config.json"
 
 const flights = config.flights || []
 const airlineLogos = new Map(Object.entries(config.airlineLogos || {}))
+
+// Function to generate a simple barcode pattern based on text
+function generateBarcodePattern(text: string): number[] {
+  const pattern: number[] = []
+  for (let i = 0; i < text.length; i++) {
+    const charCode = text.charCodeAt(i)
+    // Create a pattern based on character code
+    pattern.push(charCode % 3 === 0 ? 3 : charCode % 2 === 0 ? 2 : 1)
+  }
+  return pattern
+}
 ---
 
 <section id="vuelos" class="container mx-auto px-4 py-12">
   <h2 class="text-2xl sm:text-3xl font-semibold mb-6">Vuelos</h2>
-  <div class="grid md:grid-cols-1 gap-6">
+  <div class="space-y-8">
     {
       flights.map((group) => (
-        <div class="rounded-xl border border-white/10 p-5 bg-obsidian-800/60 backdrop-blur-xl shadow-2xl">
-          <h3 class="text-xl font-medium mb-4">{group.title}</h3>
-          <div class="space-y-4">
-            {group.segments.map((s) => (
-              <article class="rounded-lg border border-white/5 bg-obsidian-900/40 p-4 flex flex-col sm:flex-row sm:items-center gap-4 hover:bg-obsidian-900/60 transition-colors">
-                <div class="flex-1">
-                  <div class="flex items-center justify-between gap-4">
-                    <div>
-                      <div class="font-semibold text-lg">{s.title}</div>
-                      <div class="text-sm opacity-80">{s.detail}</div>
+        <div class="space-y-4">
+          {/* Airport LED dot matrix display */}
+          <div class="flex justify-center mb-8">
+            <div class="relative px-8 py-4 bg-slate-950 rounded-lg shadow-2xl border-2 border-slate-800">
+              {/* LED grid background pattern */}
+              <div
+                class="absolute inset-0 opacity-20"
+                style="background-image: radial-gradient(circle, #334155 1px, transparent 1px); background-size: 4px 4px;"
+              />
+
+              <div class="relative flex items-center gap-3">
+                <svg
+                  class="w-6 h-6 text-amber-400 animate-pulse"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+                </svg>
+                <h3
+                  class="text-2xl font-mono font-bold tracking-[0.3em] text-amber-400 uppercase drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]"
+                  style="text-shadow: 0 0 20px rgba(251, 191, 36, 0.8), 0 0 30px rgba(251, 191, 36, 0.4);"
+                >
+                  {group.title}
+                </h3>
+                <div class="flex gap-1">
+                  <div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                  <div
+                    class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"
+                    style="animation-delay: 0.2s;"
+                  />
+                  <div
+                    class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"
+                    style="animation-delay: 0.4s;"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          {group.segments.map((s) => {
+            const origin = s.title.split(" → ")[0]
+            const destination = s.title.split(" → ")[1]
+            const barcodeText = `${origin}${destination}${s.number}`
+            const barcodePattern = generateBarcodePattern(barcodeText)
+
+            return (
+              <article class="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-50 shadow-2xl max-w-4xl mx-auto">
+                <div class="p-6 sm:p-8">
+                  {/* Header */}
+                  <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                      {airlineLogos.get(s.company) ? (
+                        <img
+                          src={airlineLogos.get(s.company)}
+                          alt={`${s.company} logo`}
+                          class="h-10 w-auto"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div class="text-lg font-semibold text-slate-900">
+                          {s.company}
+                        </div>
+                      )}
                     </div>
-                    {s.note ? (
-                      <span class="text-xs px-2 py-1 rounded-md bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">
-                        {s.note}
-                      </span>
-                    ) : null}
+                    <div class="flex items-center gap-3">
+                      {/* Airplane icon */}
+                      <svg
+                        class="w-6 h-6 text-slate-600"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+                      </svg>
+                      {s.note ? (
+                        <span class="text-xs px-3 py-1.5 rounded-full bg-amber-200 text-amber-900 border border-amber-300 font-medium">
+                          {s.note}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
 
-                  <div class="mt-3 text-xs text-slate-600 dark:text-slate-400 flex flex-wrap gap-4">
-                    <span>
-                      Duración: <span class="font-medium">{s.duration}</span>
-                    </span>
+                  {/* Main Route */}
+                  <div class="grid grid-cols-[1fr,auto,1fr] gap-6 items-center mb-6">
+                    {/* Origin */}
+                    <div>
+                      <div class="text-xs text-slate-600 uppercase tracking-widest mb-2 font-semibold">
+                        Origen
+                      </div>
+                      <div class="text-4xl sm:text-5xl font-bold tracking-tight mb-1 text-slate-900">
+                        {origin}
+                      </div>
+                      <div class="text-sm text-slate-700 font-medium">
+                        {s.detail.split(" - ")[0]}
+                      </div>
+                    </div>
+
+                    {/* Arrow & Duration */}
+                    <div class="flex flex-col items-center gap-2 px-4">
+                      <svg
+                        class="w-8 h-8 text-rose-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                      <div class="text-xs text-slate-700 whitespace-nowrap font-bold">
+                        {s.duration}
+                      </div>
+                    </div>
+
+                    {/* Destination */}
+                    <div class="text-right">
+                      <div class="text-xs text-slate-600 uppercase tracking-widest mb-2 font-semibold">
+                        Destino
+                      </div>
+                      <div class="text-4xl sm:text-5xl font-bold tracking-tight mb-1 text-slate-900">
+                        {destination}
+                      </div>
+                      <div class="text-sm text-slate-700 font-medium">
+                        {s.detail.split(" - ")[1]}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                      <div class="w-full border-t border-dashed border-amber-300" />
+                    </div>
+                    <div class="absolute -left-8 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border border-amber-200" />
+                    <div class="absolute -right-8 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border border-amber-200" />
+                  </div>
+
+                  {/* Flight Details Grid */}
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                    <div>
+                      <div class="text-xs text-slate-600 uppercase tracking-widest mb-2 font-semibold">
+                        Vuelo
+                      </div>
+                      <div class="text-xl font-bold text-slate-900">
+                        {s.number}
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs text-slate-600 uppercase tracking-widest mb-2 font-semibold">
+                        Clase
+                      </div>
+                      <div class="text-lg font-semibold text-slate-900">
+                        {s.class}
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs text-slate-600 uppercase tracking-widest mb-2 font-semibold">
+                        Aeronave
+                      </div>
+                      <div class="text-sm font-medium text-slate-800">
+                        {s.plane}
+                      </div>
+                    </div>
                     {s.terminal ? (
-                      <span>
-                        Terminal: <span class="font-medium">{s.terminal}</span>
-                      </span>
+                      <div>
+                        <div class="text-xs text-slate-600 uppercase tracking-widest mb-2 font-semibold">
+                          Terminal
+                        </div>
+                        <div class="text-lg font-semibold text-slate-900">
+                          {s.terminal}
+                        </div>
+                      </div>
                     ) : null}
                   </div>
                 </div>
 
-                <div class="w-40 shrink-0 flex flex-col items-end gap-1">
-                  <div class="flex items-center gap-2">
-                    {airlineLogos.get(s.company) ? (
-                      <img
-                        src={airlineLogos.get(s.company)}
-                        alt={`${s.company} logo`}
-                        class="h-10 w-auto bg-white rounded-sm p-2"
-                        loading="lazy"
-                      />
-                    ) : null}
-                    {/* <div class="text-sm font-medium">{s.company}</div> */}
-                  </div>
-                  <div class="text-xl font-semibold">{s.number}</div>
-                  <div class="text-xs opacity-70">{s.plane}</div>
-                  <div class="mt-2 text-xs px-2 py-1 rounded-full border border-slate-200 dark:border-slate-700">
-                    {s.class}
+                {/* Real barcode with flight info */}
+                <div class="h-20 bg-white border-t border-amber-200 px-8 py-3">
+                  <div class="flex items-center justify-between h-full">
+                    <div class="flex items-end gap-0.5 h-full">
+                      {barcodePattern.map((width, i) => (
+                        <div
+                          class="bg-slate-900"
+                          style={`width: ${width * 2}px; height: ${60 + (i % 3) * 5}%`}
+                        />
+                      ))}
+                    </div>
+                    <div class="text-xs font-mono text-slate-600 tracking-wider">
+                      {origin}-{destination} | {s.number}
+                    </div>
                   </div>
                 </div>
               </article>
-            ))}
-          </div>
+            )
+          })}
         </div>
       ))
     }
   </div>
-  <p class="mt-3 text-sm opacity-70">Hora en CEST</p>
+  <p class="mt-6 text-sm opacity-70">Hora en CEST</p>
   <hr class="my-5 border-white/10" />
 </section>
