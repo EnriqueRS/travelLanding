@@ -38,11 +38,14 @@ export default function Countdown(props: {
 
 function TimeBox({ value, unit }: { value: number; unit: string }) {
   return (
-    <div className="px-3 py-2 rounded-md bg-slate-100 dark:bg-slate-800">
-      <div className="text-2xl font-semibold tabular-nums">
-        {value.toString().padStart(2, "0")}
+    <div className="relative group">
+      <div className="absolute -inset-0.5 bg-linear-to-r from-rose-500 to-violet-600 rounded-lg blur-xs opacity-30 group-hover:opacity-70 transition duration-500"></div>
+      <div className="relative px-4 py-3 rounded-lg bg-obsidian-800/90 backdrop-blur-xl border border-white/10">
+        <div className="text-3xl font-thin tabular-nums bg-clip-text text-transparent bg-linear-to-b from-white to-white/60">
+          {value.toString().padStart(2, "0")}
+        </div>
+        <div className="text-xs font-light tracking-widest uppercase text-slate-400">{unit}</div>
       </div>
-      <div className="text-xs opacity-70">{unit}</div>
     </div>
   )
 }

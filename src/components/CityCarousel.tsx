@@ -117,8 +117,9 @@ export default function CityCarousel() {
   }, [imageUrl])
 
   return (
-    <div className="mx-auto w-full max-w-5xl">
-      <div className="relative overflow-hidden rounded-2xl shadow-lg h-64 sm:h-96 bg-slate-100 dark:bg-slate-900">
+    <div className="mx-auto w-full max-w-5xl relative group">
+      <div className="absolute -inset-1 bg-linear-to-r from-cyan-500/20 via-violet-500/20 to-rose-500/20 rounded-3xl blur-md opacity-50 group-hover:opacity-80 transition duration-700"></div>
+      <div className="relative overflow-hidden rounded-2xl shadow-2xl h-64 sm:h-96 bg-obsidian-800 border border-white/10">
         {/* Background image with fade transition */}
         <img
           src={imageUrl ?? ""}

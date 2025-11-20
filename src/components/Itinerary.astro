@@ -11,7 +11,7 @@ const steps = config.itinerary || []
   <ol class="grid md:grid-cols-2 gap-6 counter-reset-[step]">
     {
       steps.map((s, idx) => (
-        <li class="relative rounded-xl border border-slate-200 dark:border-slate-800 p-5 bg-white/60 dark:bg-slate-900/60 backdrop-blur">
+        <li class="relative rounded-xl border border-white/10 p-5 bg-obsidian-800/60 backdrop-blur-xl shadow-lg hover:border-rose-500/30 transition-colors group">
           <div class="absolute -top-3 -left-3 h-8 w-8 rounded-full bg-rose-600 text-white flex items-center justify-center text-sm font-semibold shadow">
             {idx + 1}
           </div>

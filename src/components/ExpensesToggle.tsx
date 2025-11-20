@@ -24,7 +24,7 @@ export default function ExpensesToggle(): JSX.Element {
   return (
     <button
       onClick={toggle}
-      className="inline-flex items-center gap-2 rounded-md border border-slate-300 dark:border-slate-700 px-3 py-1.5 text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+      className="inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-1.5 text-sm bg-obsidian-800/60 hover:bg-obsidian-800/80 backdrop-blur-md transition-colors"
       aria-controls="expenses"
       aria-expanded={visible}
     >

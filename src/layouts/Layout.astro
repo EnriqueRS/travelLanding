@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css"
+import InteractiveBackground from "../components/InteractiveBackground.tsx"
 const {
   title = "Viaje a China 2026",
   description = "Itinerario, vuelos, mapa y cuenta atrás",
@@ -12,10 +13,7 @@ const {
 ---
 
 <!doctype html>
-<html
-  lang={lang}
-  class="min-h-full bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100"
->
+<html lang={lang} class="min-h-full bg-obsidian-900 text-slate-200 dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,28 +34,11 @@ const {
       as="image"
       href="https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"
     />
-    <script>
-      {
-        ;`
-      // Set initial theme from localStorage or system
-      (function () {
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = stored || (prefersDark ? 'dark' : 'light');
-        const root = document.documentElement;
-        if (theme === 'dark') {
-          root.classList.add('dark');
-          root.setAttribute('data-theme', 'dark');
-        } else {
-          root.classList.remove('dark');
-          root.setAttribute('data-theme', 'light');
-        }
-      })();
-      `
-      }
-    </script>
   </head>
-  <body class="antialiased min-h-full">
-    <slot />
+  <body class="antialiased min-h-full relative">
+    <InteractiveBackground client:only="react" />
+    <div class="relative z-10">
+      <slot />
+    </div>
   </body>
 </html>
