@@ -1,0 +1,268 @@
+{
+  "site": {
+    "logo": "/assets/images/logo_default.png",
+    "title": "Viaje a Italia 2026",
+    "subtitle": "La Dolce Vita: Historia, Arte y Pizza",
+    "blog": {
+      "name": "Mi Blog de Viajes",
+      "url": "https://www.ejemplo.com",
+      "logo": "https://placehold.co/200x50/png?text=TravelBlog"
+    }
+  },
+  "trip": {
+    "startISO": "2026-05-15T10:00:00+02:00"
+  },
+  "defaultBanner": "/assets/banners/italy_cover.jpg",
+  "cities": [
+    {
+      "key": "rome",
+      "label": "Roma",
+      "query": "Rome"
+    },
+    {
+      "key": "florence",
+      "label": "Florencia",
+      "query": "Florence"
+    },
+    {
+      "key": "venice",
+      "label": "Venecia",
+      "query": "Venice"
+    }
+  ],
+  "cityImages": {
+    "Roma": "/assets/cities/rome.jpg",
+    "Florencia": "/assets/cities/florence.jpg",
+    "Venecia": "/assets/cities/venice.jpg"
+  },
+  "flights": [
+    {
+      "title": "Ida",
+      "segments": [
+        {
+          "title": "Madrid (MAD) → Roma (FCO)",
+          "detail": "vie 15 may 2026 10:00 – 12:30 (CEST)",
+          "duration": "2h 30m",
+          "note": "Vuelo directo",
+          "terminal": "4",
+          "company": "Iberia",
+          "number": "IB3230",
+          "plane": "Airbus A320",
+          "class": "Económica"
+        }
+      ]
+    },
+    {
+      "title": "Vuelta",
+      "segments": [
+        {
+          "title": "Venecia (VCE) → Madrid (MAD)",
+          "detail": "dom 24 may 2026 18:45 – 21:15 (CEST)",
+          "duration": "2h 30m",
+          "terminal": "1",
+          "company": "Iberia",
+          "number": "IB3245",
+          "plane": "Airbus A320",
+          "class": "Económica"
+        }
+      ]
+    }
+  ],
+  "airlineLogos": {
+    "Iberia": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Iberia_Logotipo.svg",
+    "Vueling": "https://upload.wikimedia.org/wikipedia/commons/3/35/Vueling_Logo_2024.svg",
+    "Ryanair": "https://upload.wikimedia.org/wikipedia/commons/dd/d8/Ryanair_Logo.svg"
+  },
+  "itinerary": [
+    {
+      "city": "Roma",
+      "days": "4 días",
+      "special": "Tour nocturno por el Coliseo",
+      "must": [
+        "Coliseo y Foro Romano",
+        "Vaticano y Capilla Sixtina",
+        "Fontana di Trevi",
+        "Panteón de Agripa"
+      ],
+      "transfer": "Tren de Alta Velocidad (Frecciarossa) a Florencia: 1h 30m"
+    },
+    {
+      "city": "Florencia",
+      "days": "3 días",
+      "special": "Atardecer en Piazzale Michelangelo",
+      "must": [
+        "Galería Uffizi",
+        "Catedral de Santa María del Fiore (Duomo)",
+        "Ponte Vecchio",
+        "El David de Miguel Ángel"
+      ],
+      "transfer": "Tren a Venecia: 2h 05m"
+    },
+    {
+      "city": "Venecia",
+      "days": "2 días",
+      "must": [
+        "Plaza de San Marcos",
+        "Puente de Rialto",
+        "Paseo en Góndola",
+        "Palacio Ducal"
+      ]
+    }
+  ],
+  "stops": [
+    {
+      "name": "Madrid (MAD)",
+      "coords": [
+        40.4719,
+        -3.5626
+      ]
+    },
+    {
+      "name": "Roma (FCO)",
+      "coords": [
+        41.8003,
+        12.2389
+      ]
+    },
+    {
+      "name": null,
+      "coords": [
+        41.9028,
+        12.4964
+      ]
+    },
+    {
+      "name": null,
+      "coords": [
+        43.7696,
+        11.2558
+      ]
+    },
+    {
+      "name": null,
+      "coords": [
+        45.4408,
+        12.3155
+      ]
+    },
+    {
+      "name": "Venecia (VCE)",
+      "coords": [
+        45.5053,
+        12.3519
+      ]
+    },
+    {
+      "name": "Madrid (MAD)",
+      "coords": [
+        40.4719,
+        -3.5626
+      ]
+    }
+  ],
+  "expenses": {
+    "items": [
+      {
+        "name": "Vuelo Ida/Vuelta",
+        "category": "Vuelos",
+        "amountEUR": 185.50,
+        "status": "CONFIRMED",
+        "city": "Madrid - Italia"
+      },
+      {
+        "name": "Hotel Colosseum View",
+        "category": "Hoteles",
+        "amountEUR": 450,
+        "status": "CONFIRMED",
+        "note": "15/05 → 19/05 (4 noches)",
+        "city": "Roma",
+        "coords": [
+          41.8902,
+          12.4922
+        ],
+        "quality": 4
+      },
+      {
+        "name": "B&B Firenze Centro",
+        "category": "Hoteles",
+        "amountEUR": 240,
+        "status": "CANCELABLE",
+        "note": "19/05 → 22/05 (3 noches)",
+        "city": "Florencia",
+        "coords": [
+          43.7714,
+          11.2542
+        ],
+        "quality": 3
+      },
+      {
+        "name": "Hotel Canal Grande",
+        "category": "Hoteles",
+        "amountEUR": 300,
+        "status": "PENDING",
+        "note": "22/05 → 24/05 (2 noches)",
+        "city": "Venecia",
+        "coords": [
+          45.4410,
+          12.3210
+        ],
+        "quality": 5
+      },
+      {
+        "name": "Tren Roma - Florencia",
+        "category": "Transporte",
+        "amountEUR": 29.90,
+        "status": "CONFIRMED",
+        "city": "Roma"
+      },
+      {
+        "name": "Tren Florencia - Venecia",
+        "category": "Transporte",
+        "amountEUR": 35.50,
+        "status": "CONFIRMED",
+        "city": "Florencia"
+      },
+      {
+        "name": "Seguro de Viaje Básico",
+        "category": "Seguro",
+        "amountEUR": 25.00,
+        "status": "CONFIRMED"
+      },
+      {
+        "name": "Entrada Vaticano",
+        "category": "Experiencias",
+        "amountEUR": 30.00,
+        "status": "CONFIRMED",
+        "city": "Roma"
+      }
+    ],
+    "budget": 1500,
+    "categories": [
+      {
+        "name": "Vuelos",
+        "description": "Billetes aéreos",
+        "color": "#0ea5e9"
+      },
+      {
+        "name": "Transporte",
+        "description": "Trenes y traslados internos",
+        "color": "#22c55e"
+      },
+      {
+        "name": "Hoteles",
+        "description": "Alojamiento",
+        "color": "#facc15"
+      },
+      {
+        "name": "Seguro",
+        "description": "Seguro médico y cancelación",
+        "color": "#f97316"
+      },
+      {
+        "name": "Experiencias",
+        "description": "Museos y actividades",
+        "color": "#ef4444"
+      }
+    ]
+  }
+}
