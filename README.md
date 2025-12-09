@@ -47,10 +47,6 @@ This application provides a complete experience for displaying travel informatio
    ```
 
 3. **Configure the project**
-   - Copy the example configuration file:
-     ```bash
-     cp your/path/travel.config.json src/data/travel.config.json
-     ```
    - Edit `src/data/travel.config.json` with your personalized information
 
 4. **Run in development mode**
@@ -224,10 +220,6 @@ Esta aplicación proporciona una experiencia completa para mostrar información 
    ```
 
 3. **Configura el proyecto**
-   - Copia el archivo de ejemplo de configuración:
-     ```bash
-     cp your/path/travel.config.json src/data/travel.config.json
-     ```
    - Edita `src/data/travel.config.json` con tu información personalizada
 
 4. **Ejecuta en modo desarrollo**
