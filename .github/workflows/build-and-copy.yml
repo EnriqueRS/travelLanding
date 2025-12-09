@@ -65,7 +65,7 @@ jobs:
         run: |
           # Copy config travel file from the runner or mounted volume into the repo before building
           if [ -f "${CONFIG_TRAVEL_FILE}" ]; then
-            cp "${CONFIG_TRAVEL_FILE}" ./src/travel.config.json
+            cp "${CONFIG_TRAVEL_FILE}" ./src/data/travel.config.json
           else
             echo "config.travel.json not found; continuing without it"
           fi
