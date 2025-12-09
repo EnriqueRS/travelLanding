@@ -15,6 +15,7 @@ jobs:
       CACHE_PATH: ${{ secrets.CACHE_PATH }}
       CITIES_IMAGES: ${{ secrets.CITIES_IMAGES }}
       CONFIG_TRAVEL_FILE: ${{ secrets.CONFIG_TRAVEL_FILE }}
+      DEFAULT_BANNER: ${{ secrets.DEFAULT_BANNER }}
 
     steps:
       - name: Checkout repository
@@ -35,6 +36,16 @@ jobs:
             cp -r "${CACHE_PATH}" ./public/_unsplash_cache
           else
             echo "CACHE_PATH (${CACHE_PATH}) not found; continuing without a preseeded cache"
+          fi
+        shell: bash
+      
+        - name: Copy default banner
+        run: |
+          # Copy default banner from the runner or mounted volume into the repo before building
+          if [ -f "${DEFAULT_BANNER}" ]; then
+            cp "${DEFAULT_BANNER}" ./public/default_banner.jpg
+          else
+            echo "default_banner.jpg not found; continuing without it"
           fi
         shell: bash
 

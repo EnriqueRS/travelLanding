@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Polyline, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import L from "leaflet"
 import { useEffect, type JSX } from "react"
+import config from "../data/travel.config.json"
 
 // Basic marker icon fix for Leaflet + Vite
 const defaultIcon = new L.Icon({
@@ -40,11 +41,17 @@ export default function TripMap(props: {
   // internal STOPS constant.
   const path = stops.map((s) => s.coords)
 
+  const mapConfig = config.map || {}
+  const center = mapConfig.center || [41.9028, 12.4964] // Roma coordinates as fallback
+  const zoom = mapConfig.zoom || 4
+  const pathColor = mapConfig.pathColor || "#ef4444"
+  const pathWeight = mapConfig.pathWeight || 3
+
   return (
     <div className="w-full h-[420px] rounded-xl overflow-hidden ring-1 ring-slate-200 dark:ring-slate-800">
       <MapContainer
-        center={[39.9042, 116.4074]}
-        zoom={4}
+        center={center}
+        zoom={zoom}
         scrollWheelZoom={true}
         style={{ height: "100%", width: "100%" }}
       >
@@ -54,7 +61,7 @@ export default function TripMap(props: {
           subdomains="abcd"
         />
 
-        <Polyline positions={path} color="#ef4444" weight={3} />
+        <Polyline positions={path} color={pathColor} weight={pathWeight} />
         {stops
           .filter((s) => s.name !== null)
           .map((s, idx) => (

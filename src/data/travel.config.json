@@ -12,7 +12,7 @@
   "trip": {
     "startISO": "2026-05-15T10:00:00+02:00"
   },
-  "defaultBanner": "/assets/banners/italy_cover.jpg",
+  "defaultBanner": "/banner_default.png",
   "cities": [
     {
       "key": "rome",
@@ -31,9 +31,9 @@
     }
   ],
   "cityImages": {
-    "Roma": "/assets/cities/rome.jpg",
-    "Florencia": "/assets/cities/florence.jpg",
-    "Venecia": "/assets/cities/venice.jpg"
+    "Roma": "/cities_images/rome.png",
+    "Florencia": "/cities_images/florence.png",
+    "Venecia": "/cities_images/venice.png"
   },
   "flights": [
     {
@@ -264,5 +264,62 @@
         "color": "#ef4444"
       }
     ]
+  },
+  "interactiveBackground": {
+    "icons": [
+      "mdi:pizza",
+      "mdi:pasta",
+      "mdi:glass-wine",
+      "mdi:church",
+      "mdi:gondola",
+      "mdi:scooter",
+      "mdi:ice-cream",
+      "mdi:coliseum",
+      "mdi:bridge",
+      "mdi:palette",
+      "mdi:coffee",
+      "mdi:fruit-grapes"
+    ],
+    "hanzi": [
+      "Roma",
+      "Firenze",
+      "Venezia",
+      "Pizza",
+      "Pasta",
+      "Amore",
+      "Bella",
+      "Arte",
+      "Vino",
+      "Gelato"
+    ],
+    "colors": [
+      "#dc2626",
+      "#ea580c",
+      "#d97706",
+      "#65a30d",
+      "#0891b2",
+      "#7c3aed",
+      "#c2410c",
+      "#be123c"
+    ],
+    "count": 18,
+    "sizeMin": 25,
+    "sizeMax": 65,
+    "speedMin": 0.08,
+    "speedMax": 0.35,
+    "opacity": 0.25,
+    "maxDist": 350,
+    "repulsionForce": 45,
+    "driftAmplitude": 25,
+    "rotationSpeed": 0.15
+  },
+  "map": {
+    "center": [
+      41.9028,
+      12.4964
+    ],
+    "zoom": 5,
+    "pathColor": "#ef4444",
+    "pathWeight": 3
   }
 }

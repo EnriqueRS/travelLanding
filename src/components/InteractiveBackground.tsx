@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Icon } from "@iconify/react"
+import config from "../data/travel.config.json"
 
 type Motif = {
   id: number
@@ -12,25 +13,18 @@ type Motif = {
   color: string
 }
 
-const ICONS = [
-  "mdi:temple-buddhist-outline", // Culture/Xi'an/Beijing
-  "mdi:noodles", // Food/Chongqing
-  "mdi:city-variant-outline", // Modern/Shanghai
-  "mdi:dragon", // Dragon
-  "mdi:lantern", // Lantern
-  "mdi:cloud-outline", // Clouds
-  "mdi:camera-outline", // Travel
-  "mdi:map-marker-outline", // Map
-]
+const bgConfig = config.interactiveBackground || {}
 
-const HANZI = ["北京", "上海", "西安", "重庆", "中国", "旅行", "冒险", "长城", "熊猫"]
+const ICONS = bgConfig.icons || []
 
-const COLORS = [
-  "#ef4444", // Red
-  "#f59e0b", // Amber/Gold
-  "#eab308", // Yellow/Gold
-  "#dc2626", // Dark Red
-  "#fbbf24", // Light Gold
+const HANZI = bgConfig.hanzi || []
+
+const COLORS = bgConfig.colors || [
+  "#ef4444",
+  "#f59e0b",
+  "#eab308",
+  "#dc2626",
+  "#fbbf24",
 ]
 
 export default function InteractiveBackground() {
@@ -40,17 +34,25 @@ export default function InteractiveBackground() {
 
   useEffect(() => {
     // Initialize random motifs
-    const count = 20 // Increased number of floating elements
+    const count = bgConfig.count || 20
     const newMotifs: Motif[] = []
     for (let i = 0; i < count; i++) {
+      const sizeMin = bgConfig.sizeMin || 30
+      const sizeMax = bgConfig.sizeMax || 70
+      const speedMin = bgConfig.speedMin || 0.1
+      const speedMax = bgConfig.speedMax || 0.4
+
       newMotifs.push({
         id: i,
         x: Math.random() * 100, // %
         y: Math.random() * 100, // %
-        icon: Math.random() > 0.4 ? ICONS[Math.floor(Math.random() * ICONS.length)] : HANZI[Math.floor(Math.random() * HANZI.length)],
-        size: Math.random() * 40 + 30, // 30-70px (increased)
+        icon:
+          Math.random() > 0.4
+            ? ICONS[Math.floor(Math.random() * ICONS.length)]
+            : HANZI[Math.floor(Math.random() * HANZI.length)],
+        size: Math.random() * (sizeMax - sizeMin) + sizeMin,
         rotation: Math.random() * 360,
-        speed: Math.random() * 0.3 + 0.1, // Increased speed
+        speed: Math.random() * (speedMax - speedMin) + speedMin,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
       })
     }
@@ -108,24 +110,27 @@ function FloatingElement({
       const dist = Math.sqrt(dx * dx + dy * dy)
 
       // Repulsion effect (stronger)
-      const maxDist = 400
+      const maxDist = bgConfig.maxDist || 400
       let moveX = 0
       let moveY = 0
 
       if (dist < maxDist) {
         const force = (maxDist - dist) / maxDist
         const angle = Math.atan2(dy, dx)
-        moveX = Math.cos(angle) * force * 50 // Increased from 2 to 50
-        moveY = Math.sin(angle) * force * 50
+        const repulsionForce = bgConfig.repulsionForce || 50
+        moveX = Math.cos(angle) * force * repulsionForce
+        moveY = Math.sin(angle) * force * repulsionForce
       }
 
       // Continuous drift effect (stronger)
       const time = Date.now() * 0.001
-      const driftX = Math.sin(time * motif.speed + motif.id) * 30 // Increased
-      const driftY = Math.cos(time * motif.speed * 0.8 + motif.id) * 30 // Increased
+      const driftAmplitude = bgConfig.driftAmplitude || 30
+      const driftX = Math.sin(time * motif.speed + motif.id) * driftAmplitude
+      const driftY =
+        Math.cos(time * motif.speed * 0.8 + motif.id) * driftAmplitude
 
       // Rotation animation
-      const rotationSpeed = 0.2
+      const rotationSpeed = bgConfig.rotationSpeed || 0.2
       const currentRotation = (time * rotationSpeed * 10 + motif.rotation) % 360
 
       ref.current.style.transform = `translate(${moveX + driftX}px, ${
@@ -141,21 +146,31 @@ function FloatingElement({
 
   const isHanzi = !motif.icon.startsWith("mdi:")
 
+  const opacity = bgConfig.opacity || 0.3
+
   return (
     <div
       ref={ref}
-      className="absolute transition-opacity duration-1000 ease-in-out opacity-30" // Increased from 0.05/0.1 to 0.3
+      className="absolute transition-opacity duration-1000 ease-in-out"
       style={{
         left: `${motif.x}%`,
         top: `${motif.y}%`,
         fontSize: `${motif.size}px`,
         color: motif.color,
+        opacity: opacity,
       }}
     >
       {isHanzi ? (
-        <span className="font-serif font-bold select-none drop-shadow-lg">{motif.icon}</span>
+        <span className="font-serif font-bold select-none drop-shadow-lg">
+          {motif.icon}
+        </span>
       ) : (
-        <Icon icon={motif.icon} width={motif.size} height={motif.size} className="drop-shadow-lg" />
+        <Icon
+          icon={motif.icon}
+          width={motif.size}
+          height={motif.size}
+          className="drop-shadow-lg"
+        />
       )}
     </div>
   )

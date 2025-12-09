@@ -1,5 +1,182 @@
 # Travel Landing Page
 
+A modern and customizable web page for displaying travel itineraries, built with modern web technologies. Perfect for travel bloggers, agencies, or anyone who wants to share their next adventure in a visual and attractive way.
+
+## 🚀 Technologies Used
+
+- **Astro**: Modern framework for building fast and optimized websites
+- **React**: For interactive components (maps, charts, carousels)
+- **Tailwind CSS**: Utility-first CSS framework for responsive styles
+- **TypeScript**: Static typing for greater robustness
+- **Leaflet**: Interactive maps with markers
+- **ApexCharts/Recharts**: Charts for data visualization
+- **Material-UI**: Additional UI components
+- **Unsplash API**: For automatically obtaining city images
+
+## 📋 What Does It Offer?
+
+This application provides a complete experience for displaying travel information:
+
+- **Step-by-step itinerary** with background images for each city
+- **Detailed flight information** with segments and connections
+- **Interactive map** with routes and hotel markers
+- **Expense management** with pie charts and breakdowns
+- **Countdown** to departure date
+- **City carousel** with dynamic images
+- **Dark/light theme** adaptable
+- **Fully customizable** through JSON configuration
+
+## 🛠️ Installation and Configuration
+
+### Prerequisites
+
+- Node.js (version 18 or higher)
+- npm or yarn
+
+### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/EnriqueRS/travelLanding
+   cd travelLanding
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure the project**
+   - Copy the example configuration file:
+     ```bash
+     cp your/path/travel.config.json src/data/travel.config.json
+     ```
+   - Edit `src/data/travel.config.json` with your personalized information
+
+4. **Run in development mode**
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:4321`
+
+5. **Build for production**
+   ```bash
+   npm run build
+   npm run preview
+   ```
+
+## 📁 Project Structure
+
+```
+/
+├── public/
+│   ├── _unsplash_cache/     # Unsplash images cache
+│   ├── cities_images/       # Static city images
+│   └── favicon.svg
+├── src/
+│   ├── components/          # React/Astro components
+│   ├── data/
+│   │   ├── travel.config.json          # Main configuration
+│   ├── layouts/             # Astro layouts
+│   └── pages/               # Site pages
+├── astro.config.mjs         # Astro configuration
+├── tailwind.config.ts       # Tailwind configuration
+└── package.json
+```
+
+## ⚙️ Configuration
+
+### `travel.config.json` File
+
+The heart of customization is in `src/data/travel.config.json`. This file contains all the trip information:
+
+- **site**: General configuration (logo, title, reference blog)
+- **trip**: Trip start date
+- **cities**: List of cities with keys and labels
+- **cityImages**: Mapping of cities to background images
+- **flights**: Detailed flight information
+- **itinerary**: Day-by-day itinerary with activities
+- **expenses**: Expense breakdown by category
+- **stops**: Points on the map with coordinates
+
+### Example File
+
+`src/data/travel.config.json` contains a complete example with fictional data for Italy 2026. Use it as a reference to configure your own trip.
+
+## 🖼️ Image Management
+
+### `_unsplash_cache`
+
+This folder automatically stores images downloaded from Unsplash for the configured cities. The system:
+
+- Searches for high-quality images for each city
+- Saves them locally to avoid repeated API calls
+- Improves performance and reduces external dependencies
+
+**Note**: Make sure you have an Unsplash API key in your `.env` file if you use this functionality.
+
+### `cities_images`
+
+Contains static city images used as backgrounds in the itinerary. Place PNG/JPG images of your destinations here:
+
+- `rome.png`
+- `florence.png`
+- `venice.png`
+
+These images are mapped in `cityImages` from the configuration file.
+
+## 🎨 Customization
+
+- **Colors**: Modify `tailwind.config.ts` to change the color palette
+- **Styles**: Components use Tailwind classes, easily modifiable
+- **Layout**: `src/layouts/Layout.astro` controls the general structure
+- **Components**: Each section is an independent component in `src/components/`
+
+## 🚀 Deployment
+
+### Deployment Options
+
+- **Vercel**: Automatic deployment from GitHub
+- **Netlify**: Native Astro support
+- **Docker**: Use the included `Dockerfile` for containerization
+- **Node.js**: Deploy the production build on any server
+
+### Environment Variables
+
+Create a `.env` file for sensitive configurations:
+
+```env
+UNSPLASH_ACCESS_KEY=your_unsplash_api_key
+```
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/new-functionality`)
+3. Commit your changes (`git commit -am 'Add new functionality'`)
+4. Push to the branch (`git push origin feature/new-functionality`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is under the MIT License. See the `LICENSE` file for more details.
+
+## 🙋‍♂️ Support
+
+If you have questions or problems:
+
+1. Check the [Astro documentation](https://docs.astro.build)
+2. Check the repository issues
+3. Contact the maintainer
+
+---
+
+Happy travels and enjoy sharing your adventures! 🌍✈️
+
+---
+
+# Travel Landing Page
+
 Una página web moderna y personalizable para mostrar itinerarios de viaje, construida con tecnologías web modernas. Perfecta para bloggers de viajes, agencias o cualquier persona que quiera compartir su próxima aventura de manera visual y atractiva.
 
 ## 🚀 Tecnologías Utilizadas
@@ -38,7 +215,7 @@ Esta aplicación proporciona una experiencia completa para mostrar información 
 1. **Clona el repositorio**
    ```bash
    git clone https://github.com/EnriqueRS/travelLanding
-   cd hilarious-horizon
+   cd travelLanding
    ```
 
 2. **Instala las dependencias**
@@ -49,7 +226,7 @@ Esta aplicación proporciona una experiencia completa para mostrar información 
 3. **Configura el proyecto**
    - Copia el archivo de ejemplo de configuración:
      ```bash
-     cp src/data/travel.config.example.json src/data/travel.config.json
+     cp your/path/travel.config.json src/data/travel.config.json
      ```
    - Edita `src/data/travel.config.json` con tu información personalizada
 
@@ -77,7 +254,6 @@ Esta aplicación proporciona una experiencia completa para mostrar información 
 │   ├── components/          # Componentes React/Astro
 │   ├── data/
 │   │   ├── travel.config.json          # Configuración principal
-│   │   └── travel.config.example.json  # Archivo de ejemplo
 │   ├── layouts/             # Layouts de Astro
 │   └── pages/               # Páginas del sitio
 ├── astro.config.mjs         # Configuración de Astro
@@ -102,7 +278,7 @@ El corazón de la personalización está en `src/data/travel.config.json`. Este 
 
 ### Archivo de Ejemplo
 
-`src/data/travel.config.example.json` contiene un ejemplo completo con datos ficticios para Italia 2026. Úsalo como referencia para configurar tu propio viaje.
+`src/data/travel.config.json` contiene un ejemplo completo con datos ficticios para Italia 2026. Úsalo como referencia para configurar tu propio viaje.
 
 ## 🖼️ Gestión de Imágenes
 

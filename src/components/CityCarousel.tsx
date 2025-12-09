@@ -9,7 +9,7 @@ const cities: City[] = (config.cities || []) as City[]
 
 export default function CityCarousel() {
   const ROTATE_MS = 5000 // rotate every X milliseconds (adjustable)
-  const DEFAULT_BANNER = config.defaultBanner || "/banner_default.png"
+  const DEFAULT_BANNER = config.defaultBanner
 
   // Show the default banner immediately on first render
   const [index, setIndex] = useState(() =>
