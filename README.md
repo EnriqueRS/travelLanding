@@ -2,6 +2,12 @@
 
 A modern and customizable web page for displaying travel itineraries, built with modern web technologies. Perfect for travel bloggers, agencies, or anyone who wants to share their next adventure in a visual and attractive way.
 
+## 🎬 Demo
+
+![Travel Landing Page Demo 1](demo_landing_1.gif)
+
+![Travel Landing Page Demo 2](demo_landing_2.gif)
+
 ## 🚀 Technologies Used
 
 - **Astro**: Modern framework for building fast and optimized websites
@@ -174,6 +180,11 @@ Happy travels and enjoy sharing your adventures! 🌍✈️
 # Travel Landing Page
 
 Una página web moderna y personalizable para mostrar itinerarios de viaje, construida con tecnologías web modernas. Perfecta para bloggers de viajes, agencias o cualquier persona que quiera compartir su próxima aventura de manera visual y atractiva.
+
+## 🎬 Demostración
+![Travel Landing Page Demo 1](demo_landing_1.gif)
+
+![Travel Landing Page Demo 2](demo_landing_2.gif)
 
 ## 🚀 Tecnologías Utilizadas
 
