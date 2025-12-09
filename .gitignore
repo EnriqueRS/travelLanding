@@ -14,6 +14,7 @@ pnpm-debug.log*
 
 # unsplash cache
 public/_unsplash_cache/
+public/cities_images/
 
 # environment variables
 .env

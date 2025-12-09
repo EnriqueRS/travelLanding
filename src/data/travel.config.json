@@ -1,5 +1,6 @@
 {
   "site": {
+    "logo": "/logo.png",
     "title": "Viaje a China 2026",
     "subtitle": "Itinerario, vuelos y gastos",
     "blog": {
@@ -39,6 +40,13 @@
       "query": "Shanghai"
     }
   ],
+  "cityImages": {
+    "Pekín (Beijing)": "/cities_images/pekin.png",
+    "Xi'an": "/cities_images/xian.png",
+    "Chongqing": "/cities_images/chongqing.png",
+    "Chengdú": "/cities_images/chengdu.png",
+    "Shanghái": "/cities_images/shanghai.png"
+  },
   "flights": [
     {
       "title": "Ida",

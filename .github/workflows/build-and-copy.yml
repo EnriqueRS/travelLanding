@@ -30,7 +30,7 @@ jobs:
         run: |
           # Copy a preseeded cache from the runner or mounted volume into the repo before building
           if [ -d "${CACHE_PATH}" ]; then
-            cp -r "${CACHE_PATH}" ./public/_unsplash_cache
+            cp -r "${CACHE_PATH}" ./public
           else
             echo "CACHE_PATH (${CACHE_PATH}) not found; continuing without a preseeded cache"
           fi

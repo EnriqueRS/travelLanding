@@ -10,6 +10,7 @@ import ExpensesToggle from "../components/ExpensesToggle.tsx"
 import config from "../data/travel.config.json"
 const cfg = config as any
 const tripStartISO = cfg.trip?.startISO ?? "2026-01-01T00:00:00+02:00"
+const heroLogo = cfg.site?.logo || null
 
 // Ensure coords are passed as a fixed tuple type [lat, lng] which the
 // TripMap component expects. This converts the generic JSON arrays into
@@ -45,12 +46,16 @@ const stopsForMap = (cfg.stops || []).map((s: any) => ({
     <!-- Top row: logo (left) and nav controls (right). On small screens the title is shown below. -->
     <div class="flex items-center justify-between gap-4">
       <a href={cfg.site?.blog?.url ?? "#"} class="flex items-center gap-3">
-        <img
-          alt={cfg.site?.blog?.name ?? "Blog"}
-          src={cfg.site?.blog?.logo ??
-            "https://www.chijako.com/wp-content/uploads/2025/06/Chijako-Logo-Header.png"}
-          class="h-16 w-auto"
-        />
+        {
+          cfg.site?.blog?.logo ? (
+            <img
+              alt={cfg.site?.blog?.name ?? "Blog"}
+              src={cfg.site?.blog?.logo}
+              class="h-12 w-auto rounded-xl object-cover bg-white/5 ring-1 ring-white/10 shadow"
+              loading="lazy"
+            />
+          ) : null
+        }
       </a>
 
       <nav class="flex items-center gap-3">
@@ -65,15 +70,30 @@ const stopsForMap = (cfg.stops || []).map((s: any) => ({
     <section class="container mx-auto px-4 pt-8 pb-12">
       <div class="grid md:grid-cols-1 gap-8 items-center">
         <div class="space-y-4">
-          <h1
-            class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-none"
-          >
-            <span
-              class="bg-clip-text text-transparent bg-linear-to-r from-white via-rose-200 to-violet-200 drop-shadow-2xl"
+          <div class="flex items-center gap-3">
+            {
+              heroLogo ? (
+                <div class="h-14 w-14 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow">
+                  <img
+                    src={heroLogo}
+                    alt={cfg.site?.title ?? "Logo"}
+                    class="h-full w-full object-cover"
+                    loading="lazy"
+                    onerror="this.parentElement && this.parentElement.remove()"
+                  />
+                </div>
+              ) : null
+            }
+            <h1
+              class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-none"
             >
-              {cfg.site?.title ?? "Travel Landing Page"}
-            </span>
-          </h1>
+              <span
+                class="bg-clip-text text-transparent bg-linear-to-r from-white via-rose-200 to-violet-200 drop-shadow-2xl"
+              >
+                {cfg.site?.title ?? "Travel Landing Page"}
+              </span>
+            </h1>
+          </div>
           <p class="text-lg sm:text-2xl font-light max-w-3xl leading-relaxed">
             <span
               class="bg-clip-text text-transparent bg-linear-to-r from-slate-200 via-slate-300 to-rose-200"
@@ -119,11 +139,16 @@ const stopsForMap = (cfg.stops || []).map((s: any) => ({
         rel="noreferrer"
         class="inline-flex items-center gap-3 rounded-lg px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
       >
-        <img
-          alt={cfg.site?.blog?.name ?? "Blog"}
-          src={cfg.site?.blog?.logo ?? ""}
-          class="h-6 w-auto"
-        />
+        {
+          cfg.site?.blog?.logo ? (
+            <img
+              alt={cfg.site?.blog?.name ?? "Blog"}
+              src={cfg.site?.blog?.logo}
+              class="h-8 w-auto rounded-lg object-cover"
+              loading="lazy"
+            />
+          ) : null
+        }
         <span>{cfg.site?.blog?.name ?? "Blog del viaje"}</span>
       </a>
     </div>
@@ -190,14 +215,23 @@ const stopsForMap = (cfg.stops || []).map((s: any) => ({
 
   <footer class="container mx-auto px-4 py-10 text-sm opacity-80">
     <p>
-      © 2026 Travel Landing Page — Inspired by <a
-        class="underline underline-offset-4"
-        href={cfg.site?.blog?.url ?? "#"}
-        target="_blank"
-        rel="noreferrer"
-        >{cfg.site?.blog?.name ?? cfg.site?.blog?.url ?? "Reference blog"}</a
-      >
-      >
+      © 2026 Travel Landing Page
+      {
+        cfg.site?.blog?.url ? (
+          <>
+            {" "}
+            — Inspired by{" "}
+            <a
+              class="underline underline-offset-4"
+              href={cfg.site?.blog?.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {cfg.site?.blog?.name ?? cfg.site?.blog?.url}
+            </a>
+          </>
+        ) : null
+      }
     </p>
   </footer>
 </Layout>
