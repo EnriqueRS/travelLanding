@@ -44,9 +44,9 @@ jobs:
         run: |
           # Copy default banner from the runner or mounted volume into the repo before building
           if [ -f "${DEFAULT_BANNER}" ]; then
-            cp "${DEFAULT_BANNER}" ./public/default_banner.jpg
+            cp "${DEFAULT_BANNER}" ./public/banner_default.png
           else
-            echo "default_banner.jpg not found; continuing without it"
+            echo "banner_default.png not found; continuing without it"
           fi
         shell: bash
 
