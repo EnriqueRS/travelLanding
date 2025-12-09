@@ -14,6 +14,7 @@ jobs:
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
       CACHE_PATH: ${{ secrets.CACHE_PATH }}
       CITIES_IMAGES: ${{ secrets.CITIES_IMAGES }}
+      CONFIG_TRAVEL_FILE: ${{ secrets.CONFIG_TRAVEL_FILE }}
 
     steps:
       - name: Checkout repository
@@ -44,6 +45,16 @@ jobs:
             cp -r "${CITIES_IMAGES}" ./public/cities_images
           else
             echo "${CITIES_IMAGES} not found; continuing without cities data"
+          fi
+        shell: bash
+
+      - name: Copy config travel file
+        run: |
+          # Copy config travel file from the runner or mounted volume into the repo before building
+          if [ -f "${CONFIG_TRAVEL_FILE}" ]; then
+            cp "${CONFIG_TRAVEL_FILE}" ./src/config.travel.json
+          else
+            echo "config.travel.json not found; continuing without it"
           fi
         shell: bash
 
