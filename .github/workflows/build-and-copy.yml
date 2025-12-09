@@ -29,8 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Copy unsplash cache
+      - name: Clean first and copy unsplash cache
         run: |
+          rm -rf ./public/_unsplash_cache
           # Copy a preseeded cache from the runner or mounted volume into the repo before building
           if [ -d "${CACHE_PATH}" ]; then
             cp -r "${CACHE_PATH}" ./public/_unsplash_cache
@@ -49,8 +50,9 @@ jobs:
           fi
         shell: bash
 
-      - name: Copy cities data
+      - name: Clean first and copy cities data
         run: |
+          rm -rf ./public/cities_images
           # Copy cities data from the runner or mounted volume into the repo before building
           if [ -d "${CITIES_IMAGES}" ]; then
             cp -r "${CITIES_IMAGES}" ./public/cities_images
