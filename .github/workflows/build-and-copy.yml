@@ -13,6 +13,7 @@ jobs:
     env:
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
       CACHE_PATH: ${{ secrets.CACHE_PATH }}
+      CITIES_IMAGES: ${{ secrets.CITIES_IMAGES }}
 
     steps:
       - name: Checkout repository
