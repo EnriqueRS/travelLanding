@@ -4,9 +4,9 @@ A modern and customizable web page for displaying travel itineraries, built with
 
 ## 🎬 Demo
 
-![Travel Landing Page Demo 1](demo_landing_1.gif)
+![Travel Landing Page Demo 1](./public/demo_landing_1.gif)
 
-![Travel Landing Page Demo 2](demo_landing_2.gif)
+![Travel Landing Page Demo 2](./public/demo_landing_2.gif)
 
 ## 🚀 Technologies Used
 
@@ -182,9 +182,9 @@ Happy travels and enjoy sharing your adventures! 🌍✈️
 Una página web moderna y personalizable para mostrar itinerarios de viaje, construida con tecnologías web modernas. Perfecta para bloggers de viajes, agencias o cualquier persona que quiera compartir su próxima aventura de manera visual y atractiva.
 
 ## 🎬 Demostración
-![Travel Landing Page Demo 1](demo_landing_1.gif)
+![Travel Landing Page Demo 1](./public/demo_landing_1.gif)
 
-![Travel Landing Page Demo 2](demo_landing_2.gif)
+![Travel Landing Page Demo 2](./public/demo_landing_2.gif)
 
 ## 🚀 Tecnologías Utilizadas
 
