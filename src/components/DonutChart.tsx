@@ -69,7 +69,6 @@ export default function DonutChart(props: ExpensesChartProps): JSX.Element {
         innerRadius: 0,
         outerRadius: 80,
         data: data,
-        arcLabel: "value",
         highlightScope: { fade: "global", highlight: "item" },
       },
       {
