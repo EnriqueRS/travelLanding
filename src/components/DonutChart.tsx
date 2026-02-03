@@ -20,12 +20,13 @@ export default function DonutChart(props: ExpensesChartProps): JSX.Element {
   const data = useMemo(() => {
     return (categories ?? [])
       .map((category) => {
-        const value = (expenses ?? []).reduce((acc, item) => {
+        const valueRaw = (expenses ?? []).reduce((acc, item) => {
           if (item.category === category.name) {
             return acc + (item.amountEUR ?? 0)
           }
           return acc
         }, 0)
+        const value = Math.round(valueRaw * 100) / 100
         const color = value !== 0 ? category.color : "#cbd5f5"
         return {
           label: category.name,
