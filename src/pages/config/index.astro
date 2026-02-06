@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import ConfigEditor from "../../components/ConfigEditorSimple.tsx"
+import config from "../../data/travel.config.json"
+---
+
+<Layout
+  title="Editor de Configuración"
+  description="Edita la configuración del viaje"
+  lang="es"
+>
+  <main class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+        Editor de Configuración
+      </h1>
+      <p class="text-lg opacity-80">
+        Modifica la configuración del viaje usando el editor visual o editando
+        directamente el JSON
+      </p>
+    </div>
+
+    <div class="rounded-xl border border-white/10 bg-obsidian-900/50 p-6">
+      <ConfigEditor client:load initialConfig={config} />
+    </div>
+  </main>
+</Layout>

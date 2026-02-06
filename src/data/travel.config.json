@@ -1,53 +1,69 @@
 {
   "site": {
-    "logo": "/assets/images/logo_default.png",
-    "title": "Viaje a Italia 2026",
-    "subtitle": "La Dolce Vita: Historia, Arte y Pizza",
+    "logo": "/logo.png",
+    "title": "Viaje Costa Oeste USA 2009",
+    "subtitle": "Itinerario, vuelos y gastos",
     "blog": {
-      "name": "Mi Blog de Viajes",
-      "url": "https://www.ejemplo.com",
-      "logo": "https://placehold.co/200x50/png?text=TravelBlog"
+      "name": "La Próxima Parada",
+      "url": "https://www.laproximaparada.com/2009/12/cronica-viaje-costa-oeste-usa-2009/",
+      "logo": "https://www.laproximaparada.com/wp-content/uploads/2021/09/Logo-La-Proxima-Parada-2021.jpg"
     }
   },
   "trip": {
-    "startISO": "2026-05-15T10:00:00+02:00"
+    "startISO": "2009-07-11T07:00:00+02:00"
   },
   "defaultBanner": "/banner_default.png",
   "cities": [
     {
-      "key": "rome",
-      "label": "Roma",
-      "query": "Rome"
+      "key": "sanfrancisco",
+      "label": "San Francisco",
+      "query": "San Francisco"
     },
     {
-      "key": "florence",
-      "label": "Florencia",
-      "query": "Florence"
+      "key": "losangeles",
+      "label": "Los Ángeles",
+      "query": "Los Ángeles"
     },
     {
-      "key": "venice",
-      "label": "Venecia",
-      "query": "Venice"
+      "key": "lasvegas",
+      "label": "Las Vegas",
+      "query": "Las Vegas"
     }
   ],
-  "cityImages": {
-    "Roma": "/cities_images/rome.png",
-    "Florencia": "/cities_images/florence.png",
-    "Venecia": "/cities_images/venice.png"
-  },
   "flights": [
     {
       "title": "Ida",
       "segments": [
         {
-          "title": "Madrid (MAD) → Roma (FCO)",
-          "detail": "vie 15 may 2026 10:00 – 12:30 (CEST)",
-          "duration": "2h 30m",
-          "note": "Vuelo directo",
-          "terminal": "4",
+          "title": "Málaga (AGP) → Madrid (MAD)",
+          "detail": "sab 11 jul 2009 07:00 – 08:05 (CEST)",
+          "duration": "1h 05m",
+          "note": "Escala (3h 55m)",
+          "terminal": "2",
           "company": "Iberia",
-          "number": "IB3230",
+          "number": "6202",
           "plane": "Airbus A320",
+          "class": "Económica"
+        },
+        {
+          "title": "Madrid (MAD) → Miami (MIA)",
+          "detail": "sab 11 jul 12:00 – dom 12 jul 2009 3:00 (CEST)",
+          "duration": "9h 30m",
+          "note": "Escala (3h 45m)",
+          "terminal": "4",
+          "company": "American Airlines",
+          "number": "6214",
+          "plane": "Airbus A340",
+          "class": "Económica"
+        },
+        {
+          "title": "Miami (MIA) → San Francisco (SFO)",
+          "detail": "sab 12 jul 5:15 – 10:00 (CEST)",
+          "duration": "4h 45m",
+          "terminal": "3",
+          "company": "American Airlines",
+          "number": "1705",
+          "plane": "Boing 757",
           "class": "Económica"
         }
       ]
@@ -56,269 +72,318 @@
       "title": "Vuelta",
       "segments": [
         {
-          "title": "Venecia (VCE) → Madrid (MAD)",
-          "detail": "dom 24 may 2026 18:45 – 21:15 (CEST)",
-          "duration": "2h 30m",
-          "terminal": "1",
-          "company": "Iberia",
-          "number": "IB3245",
-          "plane": "Airbus A320",
+          "title": "San Francisco (SFO) → Nueva York (JFK)",
+          "detail": "dom 26 jul 2009 7:30 – 16:05 (CEST)",
+          "duration": "4h 35m",
+          "note": "Escala (4h 55m)",
+          "terminal": "3",
+          "company": "American Airlines",
+          "number": "24",
+          "plane": "Boing 767-300",
+          "class": "Económica"
+        },
+        {
+          "title": "Nueva York (JFK) → Madrid (MAD)",
+          "detail": "dom 26 jul 2009 21:00 – lun 27 jul 2009 10:10 (CEST)",
+          "duration": "14h 10m",
+          "terminal": 7,
+          "company": "American Airlines",
+          "number": "6252",
+          "plane": "Airbus A340",
           "class": "Económica"
         }
       ]
     }
   ],
   "airlineLogos": {
-    "Iberia": "https://upload.wikimedia.org/wikipedia/commons/2/23/Logotipo_de_Iberia.svg",
-    "Vueling": "https://upload.wikimedia.org/wikipedia/commons/3/35/Vueling_Logo_2024.svg",
-    "Ryanair": "https://upload.wikimedia.org/wikipedia/commons/dd/d8/Ryanair_Logo.svg"
+    "Iberia": "https://grupo.iberia.com/contents/archives/475/109/images/thumb420x404_auto/af-iberia-vp-rgb-pos-5b503_thumb.png",
+    "American Airlines": "https://s202.q4cdn.com/986123435/files/doc_downloads/logos/american-airlines/THUMB-aa_aa__ahz_4cp_grd_pos-(1).png"
   },
   "itinerary": [
     {
-      "city": "Roma",
-      "days": "4 días",
-      "special": "Tour nocturno por el Coliseo",
-      "must": [
-        "Coliseo y Foro Romano",
-        "Vaticano y Capilla Sixtina",
-        "Fontana di Trevi",
-        "Panteón de Agripa"
-      ],
-      "transfer": "Tren de Alta Velocidad (Frecciarossa) a Florencia: 1h 30m"
+      "city": "San Francisco",
+      "days": "5 días",
+      "special": "Alcatraz",
+      "must": [],
+      "transfer": "Tren a Xi'an: 4–5 horas"
     },
     {
-      "city": "Florencia",
-      "days": "3 días",
-      "special": "Atardecer en Piazzale Michelangelo",
+      "city": "Xi'an",
+      "days": "1 día",
       "must": [
-        "Galería Uffizi",
-        "Catedral de Santa María del Fiore (Duomo)",
-        "Ponte Vecchio",
-        "El David de Miguel Ángel"
+        "Guerreros de Terracota",
+        "Muralla de la Ciudad",
+        "Barrio Musulmán"
       ],
-      "transfer": "Tren a Venecia: 2h 05m"
+      "transfer": "Tren a Chongqing: 6 horas"
     },
     {
-      "city": "Venecia",
+      "city": "Chongqing",
+      "days": "2 días",
+      "special": "Escapada a Zona de montaña",
+      "must": [
+        "Cueva de Hongya (Hongyadong)",
+        "Museo de las Tres Gargantas",
+        "Jiefangbei CBD"
+      ],
+      "transfer": "Tren a Chengdú: 2 horas"
+    },
+    {
+      "city": "Chengdú",
+      "days": "1 día",
+      "special": "Wenshu Yuan Monastery",
+      "must": [
+        "Parque del Pueblo",
+        "New Century Global Center"
+      ],
+      "transfer": "Avión a Shanghái: 2:45 horas"
+    },
+    {
+      "city": "Shanghái",
       "days": "2 días",
       "must": [
-        "Plaza de San Marcos",
-        "Puente de Rialto",
-        "Paseo en Góndola",
-        "Palacio Ducal"
+        "El Bund (skyline)",
+        "Torre de Shanghái",
+        "Jardín Yu",
+        "Calle Nanjing"
       ]
     }
   ],
   "stops": [
     {
-      "name": "Madrid (MAD)",
+      "name": "Málaga (AGP)",
       "coords": [
-        40.4719,
-        -3.5626
+        36.6749,
+        -4.4991
       ]
     },
     {
-      "name": "Roma (FCO)",
+      "name": "Múnich (MUC)",
       "coords": [
-        41.8003,
-        12.2389
-      ]
-    },
-    {
-      "name": null,
-      "coords": [
-        41.9028,
-        12.4964
+        48.3538,
+        11.7861
       ]
     },
     {
       "name": null,
       "coords": [
-        43.7696,
-        11.2558
+        40.0799,
+        116.6031
       ]
     },
     {
       "name": null,
       "coords": [
-        45.4408,
-        12.3155
+        34.3416,
+        108.9398
       ]
     },
     {
-      "name": "Venecia (VCE)",
+      "name": null,
       "coords": [
-        45.5053,
-        12.3519
+        29.563,
+        106.5516
       ]
     },
     {
-      "name": "Madrid (MAD)",
+      "name": null,
       "coords": [
-        40.4719,
-        -3.5626
+        30.6575,
+        104.0667
+      ]
+    },
+    {
+      "name": null,
+      "coords": [
+        31.1443,
+        121.8083
+      ]
+    },
+    {
+      "name": "Zúrich (ZRH)",
+      "coords": [
+        47.4647,
+        8.5492
+      ]
+    },
+    {
+      "name": "Málaga (AGP)",
+      "coords": [
+        36.6749,
+        -4.4991
       ]
     }
   ],
   "expenses": {
     "items": [
       {
-        "name": "Vuelo Ida/Vuelta",
+        "name": "Vuelo",
         "category": "Vuelos",
-        "amountEUR": 185.50,
+        "amountEUR": 576.49,
         "status": "CONFIRMED",
-        "city": "Madrid - Italia"
+        "city": "Málaga - Pekín"
       },
       {
-        "name": "Hotel Colosseum View",
-        "category": "Hoteles",
-        "amountEUR": 450,
+        "name": "Vuelo",
+        "category": "Vuelos",
+        "amountEUR": 242.63,
         "status": "CONFIRMED",
-        "note": "15/05 → 19/05 (4 noches)",
-        "city": "Roma",
+        "city": "Shanghái - Málaga"
+      },
+      {
+        "name": "Vuelo interno",
+        "category": "Vuelos",
+        "amountEUR": 150,
+        "status": "CONFIRMED",
+        "city": "Chengdú - Shanghái"
+      },
+      {
+        "name": "Howard Johnson Paragon",
+        "category": "Hoteles",
+        "amountEUR": 150,
+        "status": "CANCELABLE",
+        "note": "30/03 → 03/04",
+        "city": "Pekín",
         "coords": [
-          41.8902,
-          12.4922
+          39.90612556370508,
+          116.42856501426816
         ],
         "quality": 4
       },
       {
-        "name": "B&B Firenze Centro",
+        "name": "Campanile Bell Tower Huimin Street",
         "category": "Hoteles",
-        "amountEUR": 240,
+        "amountEUR": 17,
         "status": "CANCELABLE",
-        "note": "19/05 → 22/05 (3 noches)",
-        "city": "Florencia",
+        "note": "03/04/2026",
+        "city": "Xi'an",
         "coords": [
-          43.7714,
-          11.2542
+          34.25809125385736,
+          108.94224182208956
         ],
         "quality": 3
       },
       {
-        "name": "Hotel Canal Grande",
+        "name": "Radisson Blu Plaza",
         "category": "Hoteles",
-        "amountEUR": 300,
-        "status": "PENDING",
-        "note": "22/05 → 24/05 (2 noches)",
-        "city": "Venecia",
+        "amountEUR": 72.5,
+        "status": "CANCELABLE",
+        "note": "04/04 → 06/04",
+        "city": "Chongqing",
         "coords": [
-          45.4410,
-          12.3210
+          29.540026085053196,
+          106.56556825596465
         ],
         "quality": 5
       },
       {
-        "name": "Tren Roma - Florencia",
-        "category": "Transporte",
-        "amountEUR": 29.90,
-        "status": "CONFIRMED",
-        "city": "Roma"
+        "name": "Xishu Garden Inn",
+        "category": "Hoteles",
+        "amountEUR": 21,
+        "status": "CANCELABLE",
+        "note": "06/04 → 07/04",
+        "city": "Chengdú",
+        "coords": [
+          30.65851287820856,
+          104.0662045063242
+        ],
+        "quality": 3
       },
       {
-        "name": "Tren Florencia - Venecia",
-        "category": "Transporte",
-        "amountEUR": 35.50,
-        "status": "CONFIRMED",
-        "city": "Florencia"
+        "name": "Novotel Atlantis",
+        "category": "Hoteles",
+        "amountEUR": 94,
+        "status": "CANCELABLE",
+        "note": "07/04 → 09/04",
+        "city": "Shanghái",
+        "coords": [
+          31.23964616548379,
+          121.52502281583718
+        ],
+        "quality": 4
       },
       {
-        "name": "Seguro de Viaje Básico",
+        "name": "Intermundial",
         "category": "Seguro",
-        "amountEUR": 25.00,
+        "amountEUR": 54.98,
         "status": "CONFIRMED"
-      },
-      {
-        "name": "Entrada Vaticano",
-        "category": "Experiencias",
-        "amountEUR": 30.00,
-        "status": "CONFIRMED",
-        "city": "Roma"
       }
     ],
-    "budget": 1500,
+    "budget": 2000,
     "categories": [
       {
         "name": "Vuelos",
-        "description": "Billetes aéreos",
+        "description": "Billetes de avión y tasas",
         "color": "#0ea5e9"
       },
       {
         "name": "Transporte",
-        "description": "Trenes y traslados internos",
+        "description": "Trenes, taxis, traslados",
         "color": "#22c55e"
       },
       {
         "name": "Hoteles",
-        "description": "Alojamiento",
+        "description": "Alojamientos",
         "color": "#facc15"
       },
       {
         "name": "Seguro",
-        "description": "Seguro médico y cancelación",
+        "description": "Coberturas médicas y de viaje",
         "color": "#f97316"
       },
       {
         "name": "Experiencias",
-        "description": "Museos y actividades",
+        "description": "Entradas, visitas guiadas, parques de atracciones",
         "color": "#ef4444"
       }
     ]
   },
   "interactiveBackground": {
     "icons": [
-      "mdi:pizza",
-      "mdi:pasta",
-      "mdi:glass-wine",
-      "mdi:church",
-      "mdi:gondola",
-      "mdi:scooter",
-      "mdi:ice-cream",
-      "mdi:coliseum",
-      "mdi:bridge",
-      "mdi:palette",
-      "mdi:coffee",
-      "mdi:fruit-grapes"
+      "mdi:temple-buddhist-outline",
+      "mdi:noodles",
+      "mdi:city-variant-outline",
+      "mdi:dragon",
+      "mdi:lantern",
+      "mdi:cloud-outline",
+      "mdi:camera-outline",
+      "mdi:map-marker-outline"
     ],
     "hanzi": [
-      "Roma",
-      "Firenze",
-      "Venezia",
-      "Pizza",
-      "Pasta",
-      "Amore",
-      "Bella",
-      "Arte",
-      "Vino",
-      "Gelato"
+      "北京",
+      "上海",
+      "西安",
+      "重庆",
+      "中国",
+      "旅行",
+      "冒险",
+      "长城",
+      "熊猫"
     ],
     "colors": [
+      "#ef4444",
+      "#f59e0b",
+      "#eab308",
       "#dc2626",
-      "#ea580c",
-      "#d97706",
-      "#65a30d",
-      "#0891b2",
-      "#7c3aed",
-      "#c2410c",
-      "#be123c"
+      "#fbbf24"
     ],
-    "count": 18,
-    "sizeMin": 25,
-    "sizeMax": 65,
-    "speedMin": 0.08,
-    "speedMax": 0.35,
-    "opacity": 0.25,
-    "maxDist": 350,
-    "repulsionForce": 45,
-    "driftAmplitude": 25,
-    "rotationSpeed": 0.15
+    "count": 20,
+    "sizeMin": 30,
+    "sizeMax": 70,
+    "speedMin": 0.1,
+    "speedMax": 0.4,
+    "opacity": 0.3,
+    "maxDist": 400,
+    "repulsionForce": 50,
+    "driftAmplitude": 30,
+    "rotationSpeed": 0.2
   },
   "map": {
     "center": [
-      41.9028,
-      12.4964
+      39.9042,
+      116.4074
     ],
-    "zoom": 5,
+    "zoom": 4,
     "pathColor": "#ef4444",
     "pathWeight": 3
   }

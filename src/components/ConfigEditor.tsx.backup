@@ -1,0 +1,507 @@
+import React, { useState, useEffect } from 'react'
+import { 
+  Box, 
+  TextField, 
+  Button, 
+  Typography, 
+  Accordion, 
+  AccordionSummary, 
+  AccordionDetails,
+  Chip,
+  IconButton,
+  Stack,
+  Paper,
+  Tabs,
+  Tab,
+  Alert
+} from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import AddIcon from '@mui/icons-material/Add'
+import DeleteIcon from '@mui/icons-material/Delete'
+import DownloadIcon from '@mui/icons-material/Download'
+
+interface TravelConfig {
+  site: {
+    logo?: string
+    title: string
+    subtitle: string
+    blog?: {
+      name: string
+      url: string
+      logo?: string
+    }
+  }
+  trip: {
+    startISO: string
+  }
+  defaultBanner?: string
+  cities: Array<{
+    key: string
+    label: string
+    query: string
+  }>
+  flights: Array<{
+    title: string
+    segments: Array<{
+      title: string
+      detail: string
+      duration: string
+      note?: string
+      terminal?: string | number
+      company: string
+      number: string
+      plane?: string
+      class?: string
+    }>
+  }>
+  airlineLogos?: Record<string, string>
+  itinerary: Array<{
+    city: string
+    days: string
+    special?: string
+    must: string[]
+    transfer?: string
+  }>
+  stops: Array<{
+    name?: string
+    coords: [number, number]
+  }>
+  expenses: {
+    items: Array<{
+      name: string
+      category: string
+      amountEUR: number
+      status: string
+      city?: string
+      note?: string
+      coords?: [number, number]
+      quality?: number
+    }>
+    budget: number
+    categories: Array<{
+      name: string
+      description: string
+      color: string
+    }>
+  }
+  interactiveBackground?: {
+    icons: string[]
+    hanzi: string[]
+    colors: string[]
+    count: number
+    sizeMin: number
+    sizeMax: number
+    speedMin: number
+    speedMax: number
+    opacity: number
+    maxDist: number
+    repulsionForce: number
+    driftAmplitude: number
+    rotationSpeed: number
+  }
+  map?: {
+    center: [number, number]
+    zoom: number
+    pathColor: string
+    pathWeight: number
+  }
+}
+
+interface ConfigEditorProps {
+  initialConfig: TravelConfig
+}
+
+const ConfigEditor: React.FC<ConfigEditorProps> = ({ initialConfig }) => {
+  const [config, setConfig] = useState<TravelConfig>(initialConfig)
+  const [tabValue, setTabValue] = useState(0)
+  const [jsonText, setJsonText] = useState(JSON.stringify(initialConfig, null, 2))
+  const [jsonError, setJsonError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setJsonText(JSON.stringify(config, null, 2))
+  }, [config])
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue)
+  }
+
+  const handleJsonTextChange = (value: string) => {
+    setJsonText(value)
+    setJsonError(null)
+    
+    try {
+      const parsedConfig = JSON.parse(value)
+      setConfig(parsedConfig)
+    } catch (error) {
+      setJsonError('JSON inválido: ' + (error as Error).message)
+    }
+  }
+
+  const updateConfig = (path: string, value: any) => {
+    setConfig(prev => {
+      const newConfig = { ...prev }
+      const keys = path.split('.')
+      let current: any = newConfig
+      
+      for (let i = 0; i < keys.length - 1; i++) {
+        const key = keys[i]
+        if (!current[key]) {
+          current[key] = {}
+        }
+        current = current[key]
+      }
+      
+      current[keys[keys.length - 1]] = value
+      return newConfig
+    })
+  }
+
+  const addItem = (path: string, defaultItem: any) => {
+    setConfig(prev => {
+      const newConfig = { ...prev }
+      const keys = path.split('.')
+      let current: any = newConfig
+      
+      for (let i = 0; i < keys.length - 1; i++) {
+        current = current[keys[i]]
+      }
+      
+      const arrayKey = keys[keys.length - 1]
+      if (!current[arrayKey]) {
+        current[arrayKey] = []
+      }
+      current[arrayKey].push(defaultItem)
+      return newConfig
+    })
+  }
+
+  const removeItem = (path: string, index: number) => {
+    setConfig(prev => {
+      const newConfig = { ...prev }
+      const keys = path.split('.')
+      let current: any = newConfig
+      
+      for (let i = 0; i < keys.length - 1; i++) {
+        current = current[keys[i]]
+      }
+      
+      const arrayKey = keys[keys.length - 1]
+      current[arrayKey].splice(index, 1)
+      return newConfig
+    })
+  }
+
+  const downloadJSON = () => {
+    const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'travel.config.json'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const renderTextField = (label: string, path: string, multiline = false) => (
+    <TextField
+      fullWidth
+      label={label}
+      value={path.split('.').reduce((obj: any, key) => obj?.[key], config) || ''}
+      onChange={(e) => updateConfig(path, e.target.value)}
+      multiline={multiline}
+      margin="normal"
+      size="small"
+      InputProps={{
+        sx: { color: 'text.primary' }
+      }}
+      InputLabelProps={{
+        sx: { color: 'text.secondary' }
+      }}
+    />
+  )
+
+  return (
+    <Box sx={{ color: 'text.primary' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
+        <Tabs value={tabValue} onChange={handleTabChange}>
+          <Tab label="Editor Visual" />
+          <Tab label="Editor JSON" />
+        </Tabs>
+      </Box>
+      
+      {tabValue === 0 && (
+        <Stack spacing={2}>
+        {/* Site Configuration */}
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Configuración del Sitio</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack spacing={2}>
+              {renderTextField('Logo', 'site.logo')}
+              {renderTextField('Título', 'site.title')}
+              {renderTextField('Subtítulo', 'site.subtitle')}
+              {renderTextField('Nombre del Blog', 'site.blog.name')}
+              {renderTextField('URL del Blog', 'site.blog.url')}
+              {renderTextField('Logo del Blog', 'site.blog.logo')}
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Trip Configuration */}
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Configuración del Viaje</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack spacing={2}>
+              {renderTextField('Fecha de Inicio (ISO)', 'trip.startISO')}
+              {renderTextField('Banner por Defecto', 'defaultBanner')}
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Cities */}
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Ciudades</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack spacing={2}>
+              {config.cities?.map((city, index) => (
+                <Paper key={index} sx={{ p: 2 }}>
+                  <Stack spacing={1}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Typography variant="subtitle2">Ciudad {index + 1}</Typography>
+                      <IconButton 
+                        size="small" 
+                        color="error"
+                        onClick={() => removeItem('cities', index)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+<TextField
+                    fullWidth
+                    label="Key"
+                    value={city.key}
+                    onChange={(e) => updateConfig(`cities.${index}.key`, e.target.value)}
+                    size="small"
+                    InputProps={{
+                      sx: { color: 'text.primary' }
+                    }}
+                    InputLabelProps={{
+                      sx: { color: 'text.secondary' }
+                    }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Label"
+                    value={city.label}
+                    onChange={(e) => updateConfig(`cities.${index}.label`, e.target.value)}
+                    size="small"
+                    InputProps={{
+                      sx: { color: 'text.primary' }
+                    }}
+                    InputLabelProps={{
+                      sx: { color: 'text.secondary' }
+                    }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Query"
+                    value={city.query}
+                    onChange={(e) => updateConfig(`cities.${index}.query`, e.target.value)}
+                    size="small"
+                    InputProps={{
+                      sx: { color: 'text.primary' }
+                    }}
+                    InputLabelProps={{
+                      sx: { color: 'text.secondary' }
+                    }}
+                  />
+                  </Stack>
+                </Paper>
+              ))}
+              <Button
+                variant="outlined"
+                startIcon={<AddIcon />}
+                onClick={() => addItem('cities', { key: '', label: '', query: '' })}
+              >
+                Añadir Ciudad
+              </Button>
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Expenses */}
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Gastos</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack spacing={2}>
+              <TextField
+                fullWidth
+                label="Presupuesto"
+                type="number"
+                value={config.expenses?.budget || 0}
+                onChange={(e) => updateConfig('expenses.budget', Number(e.target.value))}
+                size="small"
+              />
+              
+              <Typography variant="subtitle1">Items</Typography>
+              {config.expenses?.items?.map((item, index) => (
+                <Paper key={index} sx={{ p: 2 }}>
+                  <Stack spacing={1}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Typography variant="subtitle2">Item {index + 1}</Typography>
+                      <IconButton 
+                        size="small" 
+                        color="error"
+                        onClick={() => removeItem('expenses.items', index)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+                    <Stack spacing={1}>
+                      <Stack direction="row" spacing={1}>
+                        <TextField
+                          fullWidth
+                          label="Nombre"
+                          value={item.name}
+                          onChange={(e) => updateConfig(`expenses.items.${index}.name`, e.target.value)}
+                          size="small"
+                          InputProps={{
+                            sx: { color: 'text.primary' }
+                          }}
+                          InputLabelProps={{
+                            sx: { color: 'text.secondary' }
+                          }}
+                        />
+                        <TextField
+                          fullWidth
+                          label="Categoría"
+                          value={item.category}
+                          onChange={(e) => updateConfig(`expenses.items.${index}.category`, e.target.value)}
+                          size="small"
+                          InputProps={{
+                            sx: { color: 'text.primary' }
+                          }}
+                          InputLabelProps={{
+                            sx: { color: 'text.secondary' }
+                          }}
+                        />
+                      </Stack>
+                      <Stack direction="row" spacing={1}>
+                        <TextField
+                          fullWidth
+                          label="Cantidad (EUR)"
+                          type="number"
+                          value={item.amountEUR}
+                          onChange={(e) => updateConfig(`expenses.items.${index}.amountEUR`, Number(e.target.value))}
+                          size="small"
+                          InputProps={{
+                            sx: { color: 'text.primary' }
+                          }}
+                          InputLabelProps={{
+                            sx: { color: 'text.secondary' }
+                          }}
+                        />
+                        <TextField
+                          fullWidth
+                          label="Estado"
+                          value={item.status}
+                          onChange={(e) => updateConfig(`expenses.items.${index}.status`, e.target.value)}
+                          size="small"
+                          InputProps={{
+                            sx: { color: 'text.primary' }
+                          }}
+                          InputLabelProps={{
+                            sx: { color: 'text.secondary' }
+                          }}
+                        />
+                      </Stack>
+                      <TextField
+                        fullWidth
+                        label="Ciudad"
+                        value={item.city || ''}
+                        onChange={(e) => updateConfig(`expenses.items.${index}.city`, e.target.value)}
+                        size="small"
+                        InputProps={{
+                          sx: { color: 'text.primary' }
+                        }}
+                        InputLabelProps={{
+                          sx: { color: 'text.secondary' }
+                        }}
+                      />
+                    </Stack>
+                  </Stack>
+                </Paper>
+              ))}
+              <Button
+                variant="outlined"
+                startIcon={<AddIcon />}
+                onClick={() => addItem('expenses.items', {
+                  name: '',
+                  category: '',
+                  amountEUR: 0,
+                  status: '',
+                  city: ''
+                })}
+              >
+                Añadir Item
+              </Button>
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Action Buttons */}
+        <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+          <Button
+            variant="contained"
+            startIcon={<DownloadIcon />}
+            onClick={downloadJSON}
+            fullWidth
+          >
+            Descargar JSON
+          </Button>
+        </Stack>
+        )}
+        
+        {tabValue === 1 && (
+          <Stack spacing={2}>
+            {jsonError && (
+              <Alert severity="error" onClose={() => setJsonError(null)}>
+                {jsonError}
+              </Alert>
+            )}
+            <TextField
+              multiline
+              fullWidth
+              minRows={20}
+              value={jsonText}
+              onChange={(e) => handleJsonTextChange(e.target.value)}
+              label="JSON Configuration"
+              placeholder="Paste your JSON configuration here..."
+              InputProps={{
+                sx: { 
+                  color: 'text.primary',
+                  fontFamily: 'monospace',
+                  fontSize: '0.875rem'
+                }
+              }}
+              InputLabelProps={{
+                sx: { color: 'text.secondary' }
+              }}
+            />
+            <Typography variant="body2" color="text.secondary">
+              Tip: You can paste a complete JSON configuration here and it will be automatically parsed and applied.
+            </Typography>
+          </Stack>
+        )}
+      </Box>
+    </Box>
+  )
+}
+
+export default ConfigEditor

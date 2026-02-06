@@ -13,6 +13,7 @@
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@iconify/react": "^6.0.2",
+    "@mui/icons-material": "^7.3.7",
     "@mui/material": "latest",
     "@mui/x-charts": "latest",
     "@tailwindcss/vite": "^4.1.17",
