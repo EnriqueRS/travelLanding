@@ -132,6 +132,14 @@ const TravelConfigSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Prevent overwrite in dev
+// User Schema for Authentication
+const UserSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+}, { timestamps: true });
+
+export const User = mongoose.models.User || mongoose.model('User', UserSchema);
+
 export const TravelConfig = mongoose.models.TravelConfig || mongoose.model('TravelConfig', TravelConfigSchema);
 
 export default dbConnect;

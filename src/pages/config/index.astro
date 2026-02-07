@@ -3,6 +3,15 @@ import Layout from "../../layouts/Layout.astro"
 import ConfigEditor from "../../components/ConfigEditorSimple.tsx"
 import { getTravelConfig } from "../../lib/config"
 
+import { verifyToken } from "../../lib/auth"
+
+const token = Astro.cookies.get("auth_token")?.value
+const user = token ? verifyToken(token) : null
+
+if (!user) {
+  return Astro.redirect("/login")
+}
+
 const config = await getTravelConfig()
 ---
 
