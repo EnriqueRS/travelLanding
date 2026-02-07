@@ -526,6 +526,7 @@ const ConfigEditor: React.FC<ConfigEditorProps> = ({ initialConfig }) => {
                          </IconButton>
                         <Stack spacing={1}>
                           <TextField fullWidth label="Nombre" size="small" value={item.name || ""} onChange={(e) => updateConfigField(`expenses.items.${index}.name`, e.target.value)} />
+                          <TextField fullWidth label="Ciudad" size="small" value={item.city || ""} onChange={(e) => updateConfigField(`expenses.items.${index}.city`, e.target.value)} />
                           <TextField fullWidth label="Categoría" size="small" value={item.category || ""} onChange={(e) => updateConfigField(`expenses.items.${index}.category`, e.target.value)} />
                           <TextField fullWidth label="Cantidad (EUR)" type="number" size="small" value={item.amountEUR || 0} onChange={(e) => updateConfigField(`expenses.items.${index}.amountEUR`, Number(e.target.value))} />
                           <TextField fullWidth label="Estado" size="small" value={item.status || ""} onChange={(e) => updateConfigField(`expenses.items.${index}.status`, e.target.value)} />
