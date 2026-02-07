@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Icon } from "@iconify/react"
-import config from "../data/travel.config.json"
 
 type Motif = {
   id: number
@@ -13,21 +12,18 @@ type Motif = {
   color: string
 }
 
-const bgConfig = config.interactiveBackground || {}
+export default function InteractiveBackground({ themeConfig }: { themeConfig?: any }) {
+  const bgConfig = themeConfig || {}
+  const ICONS = bgConfig.icons || []
+  const HANZI = bgConfig.hanzi || []
+  const COLORS = bgConfig.colors || [
+    "#ef4444",
+    "#f59e0b",
+    "#eab308",
+    "#dc2626",
+    "#fbbf24",
+  ]
 
-const ICONS = bgConfig.icons || []
-
-const HANZI = bgConfig.hanzi || []
-
-const COLORS = bgConfig.colors || [
-  "#ef4444",
-  "#f59e0b",
-  "#eab308",
-  "#dc2626",
-  "#fbbf24",
-]
-
-export default function InteractiveBackground() {
   const [motifs, setMotifs] = useState<Motif[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
   const mouseRef = useRef({ x: 0, y: 0 })
@@ -76,9 +72,8 @@ export default function InteractiveBackground() {
       aria-hidden="true"
     >
       {motifs.map((motif) => (
-        <FloatingElement key={motif.id} motif={motif} mouseRef={mouseRef} />
+        <FloatingElement key={motif.id} motif={motif} mouseRef={mouseRef} config={bgConfig} />
       ))}
-      {/* Gradient overlay to ensure text readability */}
       <div className="absolute inset-0 bg-linear-to-b from-obsidian-900/60 via-transparent to-obsidian-900/60 pointer-events-none" />
     </div>
   )
@@ -87,9 +82,11 @@ export default function InteractiveBackground() {
 function FloatingElement({
   motif,
   mouseRef,
+  config
 }: {
   motif: Motif
   mouseRef: React.MutableRefObject<{ x: number; y: number }>
+  config: any
 }) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -110,27 +107,27 @@ function FloatingElement({
       const dist = Math.sqrt(dx * dx + dy * dy)
 
       // Repulsion effect (stronger)
-      const maxDist = bgConfig.maxDist || 400
+      const maxDist = config.maxDist || 400
       let moveX = 0
       let moveY = 0
 
       if (dist < maxDist) {
         const force = (maxDist - dist) / maxDist
         const angle = Math.atan2(dy, dx)
-        const repulsionForce = bgConfig.repulsionForce || 50
+        const repulsionForce = config.repulsionForce || 50
         moveX = Math.cos(angle) * force * repulsionForce
         moveY = Math.sin(angle) * force * repulsionForce
       }
 
       // Continuous drift effect (stronger)
       const time = Date.now() * 0.001
-      const driftAmplitude = bgConfig.driftAmplitude || 30
+      const driftAmplitude = config.driftAmplitude || 30
       const driftX = Math.sin(time * motif.speed + motif.id) * driftAmplitude
       const driftY =
         Math.cos(time * motif.speed * 0.8 + motif.id) * driftAmplitude
 
       // Rotation animation
-      const rotationSpeed = bgConfig.rotationSpeed || 0.2
+      const rotationSpeed = config.rotationSpeed || 0.2
       const currentRotation = (time * rotationSpeed * 10 + motif.rotation) % 360
 
       ref.current.style.transform = `translate(${moveX + driftX}px, ${
@@ -142,11 +139,11 @@ function FloatingElement({
 
     rafId = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(rafId)
-  }, [motif])
+  }, [motif, config])
 
   const isHanzi = !motif.icon.startsWith("mdi:")
 
-  const opacity = bgConfig.opacity || 0.3
+  const opacity = config.opacity || 0.3
 
   return (
     <div

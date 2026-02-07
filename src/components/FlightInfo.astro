@@ -1,15 +1,12 @@
 ---
-import config from "../data/travel.config.json"
-
-const flights = config.flights || []
-const airlineLogos = new Map(Object.entries(config.airlineLogos || {}))
+const { flights = [], airlineLogos = new Map() } = Astro.props
 
 // Function to generate a simple barcode pattern based on text
 function generateBarcodePattern(text: string): number[] {
   const pattern: number[] = []
   for (let i = 0; i < text.length; i++) {
     const charCode = text.charCodeAt(i)
-    // Create a pattern based on character code
+    // Create a pattern based on characters code
     pattern.push(charCode % 3 === 0 ? 3 : charCode % 2 === 0 ? 2 : 1)
   }
   return pattern

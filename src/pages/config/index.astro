@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro"
 import ConfigEditor from "../../components/ConfigEditorSimple.tsx"
-import config from "../../data/travel.config.json"
+import { getTravelConfig } from "../../lib/config"
+
+const config = await getTravelConfig()
 ---
 
 <Layout
@@ -21,7 +23,7 @@ import config from "../../data/travel.config.json"
     </div>
 
     <div class="rounded-xl border border-white/10 bg-obsidian-900/50 p-6">
-      <ConfigEditor client:load initialConfig={config} />
+      <ConfigEditor client:only="react" initialConfig={config} />
     </div>
   </main>
 </Layout>

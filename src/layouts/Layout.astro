@@ -1,22 +1,24 @@
 ---
 import "../styles/global.css"
 import InteractiveBackground from "../components/InteractiveBackground.tsx"
-import config from "../data/travel.config.json"
 
-const cfg = config as any
 const {
-  title = cfg.site?.title ?? "Viaje a China 2026",
-  description = cfg.site?.subtitle ?? "Itinerario, vuelos, mapa y cuenta atrás",
+  title = "Mi increíble viaje",
+  description = "Itinerario, vuelos, mapa y cuenta atrás",
   lang = "es",
+  themeConfig = {}, // For InteractiveBackground
+  siteConfig = {}, // For logos etc
 } = Astro.props as {
   title?: string
   description?: string
   lang?: string
+  themeConfig?: any
+  siteConfig?: any
 }
 
 // Logos parametrizados; si no se definen en config, no se muestra imagen
-const blogLogo = cfg.site?.blog?.logo || null
-const siteLogo = cfg.site?.logo || null
+const blogLogo = siteConfig?.blog?.logo || null
+const siteLogo = siteConfig?.logo || null
 ---
 
 <!doctype html>
@@ -44,7 +46,7 @@ const siteLogo = cfg.site?.logo || null
     {siteLogo && <link rel="preload" as="image" href={siteLogo} />}
   </head>
   <body class="antialiased min-h-full relative">
-    <InteractiveBackground client:only="react" />
+    <InteractiveBackground client:only="react" themeConfig={themeConfig} />
     <div class="relative z-10">
       <slot />
     </div>

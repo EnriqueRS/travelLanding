@@ -1,10 +1,5 @@
 ---
-import config from "../data/travel.config.json"
-
-const steps = config.itinerary || []
-
-// Mapeo de nombres de ciudad a archivos de imagen
-const cityImageMap: Record<string, string> = config.cityImages || {}
+const { itinerary: steps = [], cityImages: cityImageMap = {} } = Astro.props
 ---
 
 <section id="itinerario" class="container mx-auto px-4 py-12">

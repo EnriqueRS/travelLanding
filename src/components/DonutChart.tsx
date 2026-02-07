@@ -47,10 +47,31 @@ export default function DonutChart(props: ExpensesChartProps): JSX.Element {
   const opacity = 0.6
 
   const dataByCity = useMemo(() => {
-    return (expenses ?? []).map((expense) => {
-      const label = expense.city ?? expense.name ?? "Sin datos"
+    // Group expenses by city
+    // For the outer ring, we want to show expenses but ordered by category as defined in config
+    
+    // First, map expenses to include their category index for sorting
+    const mapped = (expenses ?? []).map((expense) => {
       const idx = categories.findIndex((cat) => cat.name === expense.category)
-      const color = hexToRgba(categories[idx]?.color ?? "#cbd5f5", opacity)
+      return {
+        ...expense,
+        categoryIndex: idx === -1 ? 999 : idx, // Put unknown categories at the end
+        color: idx !== -1 ? categories[idx].color : "#cbd5f5"
+      }
+    })
+
+    // Sort by Category Index first, then by City name (optional, but good for consistency)
+    mapped.sort((a, b) => {
+      if (a.categoryIndex !== b.categoryIndex) {
+        return a.categoryIndex - b.categoryIndex
+      }
+      return (a.city || a.name || "").localeCompare(b.city || b.name || "")
+    })
+
+    return mapped.map((expense) => {
+      const label = expense.city ?? expense.name ?? "Sin datos"
+      const color = hexToRgba(expense.color, opacity)
+      
       return {
         label,
         value: expense.amountEUR ?? 0,
@@ -64,22 +85,26 @@ export default function DonutChart(props: ExpensesChartProps): JSX.Element {
     width: 300,
     height: 300,
     hideLegend: true,
-    series: [
-      {
-        innerRadius: 0,
-        outerRadius: 80,
-        data: data,
-        highlightScope: { fade: "global", highlight: "item" },
-      },
-      {
-        id: "outer",
-        innerRadius: 100,
-        outerRadius: 120,
-        data: dataByCity,
-        highlightScope: { fade: "global", highlight: "item" },
-      },
-    ],
   }
 
-  return <PieChart series={[{ data, arcLabel: "value" }]} {...settings} />
+  return (
+    <PieChart
+      series={[
+        {
+          innerRadius: 0,
+          outerRadius: 80,
+          data: data,
+          highlightScope: { fade: "global", highlight: "item" },
+        },
+        {
+          id: "outer",
+          innerRadius: 100,
+          outerRadius: 120,
+          data: dataByCity,
+          highlightScope: { fade: "global", highlight: "item" },
+        },
+      ]}
+      {...settings}
+    />
+  )
 }

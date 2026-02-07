@@ -2,13 +2,13 @@
 import DonutChart from "./DonutChart.tsx"
 import { StyledEngineProvider } from "@mui/material/styles"
 
-import config from "../data/travel.config.json"
+const { expensesData } = Astro.props
 
-// Load expenses from centralized config. The config stores expenses under
-// `config.expenses.items` and also contains `budget` and `categories`.
-const expenses = (config.expenses && config.expenses.items) || []
-const budget = (config.expenses && config.expenses.budget) || 2000
-const total = expenses.reduce((acc, e) => acc + (e.amountEUR || 0), 0)
+// Load expenses from props
+// `expensesData` contains items, budget, and categories.
+const expenses = (expensesData && expensesData.items) || []
+const budget = (expensesData && expensesData.budget) || 2000
+const total = expenses.reduce((acc: any, e: any) => acc + (e.amountEUR || 0), 0)
 const percentage = Math.min((total / budget) * 100, 100)
 const remaining = Math.max(budget - total, 0)
 const formatEUR = (amount: number) => {
@@ -30,7 +30,7 @@ const remainingClass =
     : percentage < 80
       ? "text-amber-600 dark:text-amber-400"
       : "text-rose-500 dark:text-rose-400"
-const categoryPalette = (config.expenses && config.expenses.categories) || [
+const categoryPalette = (expensesData && expensesData.categories) || [
   {
     name: "Vuelos",
     description: "Billetes de avión y tasas",
@@ -57,20 +57,25 @@ const categoryPalette = (config.expenses && config.expenses.categories) || [
     color: "#ef4444",
   },
 ]
-const categoryLookup = new Map(categoryPalette.map((cat) => [cat.name, cat]))
-const categoryStats = categoryPalette.map((cat) => {
-  const items = expenses.filter((item) => item.category === cat.name)
-  const totalByCategory = items.reduce((acc, item) => acc + item.amountEUR, 0)
+const categoryLookup = new Map(
+  categoryPalette.map((cat: any) => [cat.name, cat]),
+)
+const categoryStats = categoryPalette.map((cat: any) => {
+  const items = expenses.filter((item: any) => item.category === cat.name)
+  const totalByCategory = items.reduce(
+    (acc: any, item: any) => acc + item.amountEUR,
+    0,
+  )
   return { ...cat, total: totalByCategory, items }
 })
-const categoryDistribution = categoryStats.filter((cat) => cat.total > 0)
+const categoryDistribution = categoryStats.filter((cat: any) => cat.total > 0)
 const fallbackFillColor =
   percentage < 50 ? "#10b981" : percentage < 80 ? "#f59e0b" : "#ef4444"
 const progressGradientStops = (() => {
   if (!total || !categoryDistribution.length) return ""
   let cumulative = 0
   return categoryDistribution
-    .map((cat) => {
+    .map((cat: any) => {
       const share = (cat.total / total) * 100
       const start = cumulative
       cumulative += share

@@ -7,7 +7,9 @@ import CityCarousel from "../components/CityCarousel.tsx"
 import Itinerary from "../components/Itinerary.astro"
 import Expenses from "../components/Expenses.astro"
 import ExpensesToggle from "../components/ExpensesToggle.tsx"
-import config from "../data/travel.config.json"
+import { getTravelConfig } from "../lib/config"
+
+const config = await getTravelConfig()
 const cfg = config as any
 const tripStartISO = cfg.trip?.startISO ?? "2026-01-01T00:00:00+02:00"
 const heroLogo = cfg.site?.logo || null
@@ -35,12 +37,20 @@ const stopsForMap = (cfg.stops || []).map((s: any) => ({
   name: s.name ?? null,
   coords: [s.coords[0], s.coords[1]] as [number, number],
 }))
+
+const bgConfig = cfg.interactiveBackground || {}
+const mapConfig = cfg.map || {}
+const cities = cfg.cities || []
+const defaultBanner =
+  cfg.site?.defaultBanner || cfg.defaultBanner || "/banner_default.png"
 ---
 
 <Layout
   title={cfg.site?.title ?? "Travel Landing Page"}
   description={cfg.site?.subtitle ?? "Itinerario, vuelos y más"}
   lang="es"
+  themeConfig={bgConfig}
+  siteConfig={cfg.site}
 >
   <header class="container mx-auto px-4 py-4">
     <!-- Top row: logo (left) and nav controls (right). On small screens the title is shown below. -->
@@ -127,11 +137,18 @@ const stopsForMap = (cfg.stops || []).map((s: any) => ({
 
     <!-- Carousel de fotos de ciudades -->
     <section class="container mx-auto px-4 py-8">
-      <CityCarousel client:only="react" />
+      <CityCarousel
+        client:only="react"
+        cities={cities}
+        defaultBanner={defaultBanner}
+      />
     </section>
 
-    <Expenses />
-    <FlightInfo />
+    <Expenses expensesData={cfg.expenses} />
+    <FlightInfo
+      flights={cfg.flights}
+      airlineLogos={new Map(Object.entries(cfg.airlineLogos || {}))}
+    />
     <div class="text-center">
       <a
         href={cfg.site?.blog?.url ?? "#"}
@@ -152,7 +169,7 @@ const stopsForMap = (cfg.stops || []).map((s: any) => ({
         <span>{cfg.site?.blog?.name ?? "Blog del viaje"}</span>
       </a>
     </div>
-    <Itinerary />
+    <Itinerary itinerary={cfg.itinerary} cityImages={cfg.cityImages} />
 
     <section id="mapa" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl sm:text-3xl font-semibold mb-6">Mapa del viaje</h2>
@@ -168,6 +185,7 @@ const stopsForMap = (cfg.stops || []).map((s: any) => ({
             client:only="react"
             hotels={hotelsForMap}
             stops={stopsForMap}
+            mapConfig={mapConfig}
           />
         </div>
       </div>

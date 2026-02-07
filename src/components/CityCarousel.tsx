@@ -1,15 +1,8 @@
 import React, { useEffect, useMemo, useState, useRef } from "react"
-import config from "../data/travel.config.json"
 
-type City = { key: string; label: string; query: string }
-
-// Prefer the canonical list from the centralized config. Cast to City[] for
-// typing since JSON imports are untyped at compile time.
-const cities: City[] = (config.cities || []) as City[]
-
-export default function CityCarousel() {
+export default function CityCarousel({ cities = [], defaultBanner = "" }: { cities?: any[], defaultBanner?: string }) {
   const ROTATE_MS = 5000 // rotate every X milliseconds (adjustable)
-  const DEFAULT_BANNER = config.defaultBanner
+  const DEFAULT_BANNER = defaultBanner
 
   // Show the default banner immediately on first render
   const [index, setIndex] = useState(() =>
@@ -39,7 +32,7 @@ export default function CityCarousel() {
       setProgress(0)
     } catch (err) {
       // fallback to source.unsplash (no API key) if server or network fails
-      const city = config.cities.find((c: any) => c.key === cityKey)
+      const city = cities.find((c: any) => c.key === cityKey)
       const fallback = `https://source.unsplash.com/1200x800/?${encodeURIComponent(
         (city && city.query) || cityKey
       )}`
@@ -57,7 +50,7 @@ export default function CityCarousel() {
     // Start progress from now and keep the default banner visible while the first
     // remote image is fetched in background.
     startRef.current = Date.now()
-    fetchForCity(config.cities[index].key)
+    fetchForCity(cities[index].key)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -66,9 +59,9 @@ export default function CityCarousel() {
   // Rotate every ROTATE_MS milliseconds to a random city
   useEffect(() => {
     const id = setInterval(() => {
-      const next = Math.floor(Math.random() * config.cities.length)
+      const next = Math.floor(Math.random() * cities.length)
       setIndex(next)
-      fetchForCity(config.cities[next].key)
+      fetchForCity(cities[next].key)
     }, ROTATE_MS)
     return () => clearInterval(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
