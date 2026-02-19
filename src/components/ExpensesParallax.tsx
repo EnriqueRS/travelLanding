@@ -62,18 +62,18 @@ const Card = ({
           backgroundColor: color,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
-        className="flex flex-col relative -top-[25%] h-[500px] w-[90%] md:w-[1000px] rounded-[25px] p-12 origin-top shadow-2xl border border-white/10"
+        className="flex flex-col relative -top-[25%] h-[500px] w-[90%] md:w-[1000px] rounded-[25px] p-6 md:p-12 origin-top shadow-2xl border border-white/10 overflow-hidden"
       >
-        <div className="flex h-full gap-12 flex-col md:flex-row">
+        <div className="flex h-full gap-12 flex-col md:flex-row relative z-10">
             {/* Left Content */}
-          <div className="flex flex-col justify-between w-full md:w-[60%] z-10">
+          <div className="flex flex-col justify-between w-full md:w-[60%] h-full">
             <div>
                 <div className="flex items-center gap-3 mb-4">
-                     <span className="bg-black/20 text-black/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                     <span className="bg-black/20 text-black/80 md:bg-black/20 md:text-black/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider dark:bg-white/20 dark:text-white">
                         {item.category}
                      </span>
                       {item.city && (
-                        <span className="text-black/60 text-sm font-medium flex items-center gap-1">
+                        <span className="text-black/60 md:text-black/60 text-sm font-medium flex items-center gap-1 dark:text-white/80">
                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                             </svg>
@@ -82,27 +82,24 @@ const Card = ({
                     )}
                 </div>
                  {item.date && (
-        <div className="text-black/50 text-sm font-medium mb-1">
+        <div className="text-black/50 md:text-black/50 text-sm font-medium mb-1 dark:text-white/70">
           {new Date(item.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
         </div>
       )}
-              <h2 className="text-4xl md:text-5xl font-bold text-black mb-2">{item.name}</h2>
-              {item.note && <p className="text-black/70 text-lg mt-4 max-w-md leading-relaxed">{item.note}</p>}
+              <h2 className="text-4xl md:text-5xl font-bold text-black md:text-black mb-2 dark:text-white">{item.name}</h2>
+              {item.note && <p className="text-black/70 md:text-black/70 text-lg mt-4 max-w-md leading-relaxed dark:text-white/90">{item.note}</p>}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-auto md:mt-8">
                  <div className="flex items-baseline gap-1">
-                    <span className="text-6xl font-black text-black tracking-tight">{item.amountEUR}</span>
-                    <span className="text-3xl font-medium text-black/70">€</span>
-                 </div>
-                 <div className="mt-2 text-black/50 font-medium">
-                    State: <span className={item.status === 'CONFIRMED' ? 'text-green-800' : 'text-orange-800'}>{item.status}</span>
+                    <span className="text-6xl font-black text-black md:text-black tracking-tight dark:text-white">{item.amountEUR}</span>
+                    <span className="text-3xl font-medium text-black/70 md:text-black/70 dark:text-white/80">€</span>
                  </div>
             </div>
           </div>
 
-            {/* Right Visual / Image Placeholder */}
-          <div className="relative w-full md:w-[40%] h-full rounded-[20px] overflow-hidden bg-white/20">
+            {/* Right Visual / Image Placeholder (Desktop Only) */}
+          <div className="hidden md:block relative w-[40%] h-full rounded-[20px] overflow-hidden bg-white/20">
             <motion.div
               className="w-full h-full object-cover bg-linear-to-br from-white/40 to-white/10"
               style={{ scale: imageScale }}
@@ -124,6 +121,22 @@ const Card = ({
                 )}
             </motion.div>
           </div>
+        </div>
+
+        {/* Mobile Background Image with Overlay */}
+        <div className="md:hidden absolute inset-0 z-0">
+             {item.image ? (
+                <>
+                    <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+                </>
+            ) : (
+                 <div className="w-full h-full bg-gradient-to-br from-white/20 to-white/5" />
+            )}
         </div>
       </motion.div>
     </div>
