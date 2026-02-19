@@ -182,6 +182,60 @@ const ConfigEditor: React.FC<ConfigEditorProps> = ({ initialConfig }) => {
     })
   }
 
+  // --- Map Helper Functions ---
+  const updateMapKey = (path: string, oldKey: string, newKey: string) => {
+    if (!newKey || oldKey === newKey) return
+    setConfig((prevConfig: any) => {
+      const newConfig = JSON.parse(JSON.stringify(prevConfig))
+      const keys = path.split('.')
+      let current = newConfig
+      for (const key of keys) {
+        if (!current[key]) current[key] = {}
+        current = current[key]
+      }
+      
+      const value = current[oldKey]
+      delete current[oldKey]
+      current[newKey] = value
+      setJsonText(JSON.stringify(newConfig, null, 2))
+      return newConfig
+    })
+  }
+
+  const addMapKey = (path: string, key: string, defaultValue: any) => {
+    setConfig((prevConfig: any) => {
+      const newConfig = JSON.parse(JSON.stringify(prevConfig))
+      const keys = path.split('.')
+      let current = newConfig
+      for (const key of keys) {
+        if (!current[key]) current[key] = {}
+        current = current[key]
+      }
+      
+      if (!current[key]) {
+        current[key] = defaultValue
+        setJsonText(JSON.stringify(newConfig, null, 2))
+      }
+      return newConfig
+    })
+  }
+
+  const removeMapKey = (path: string, key: string) => {
+    setConfig((prevConfig: any) => {
+      const newConfig = JSON.parse(JSON.stringify(prevConfig))
+      const keys = path.split('.')
+      let current = newConfig
+      for (const key of keys) {
+        if (!current[key]) return prevConfig
+        current = current[key]
+      }
+      
+      delete current[key]
+      setJsonText(JSON.stringify(newConfig, null, 2))
+      return newConfig
+    })
+  }
+
   // --- JSON Editor Helpers ---
   const handleEditorChange = (value: string | undefined) => {
     const text = value || ""
@@ -427,6 +481,67 @@ const ConfigEditor: React.FC<ConfigEditorProps> = ({ initialConfig }) => {
                   </AccordionDetails>
                 </Accordion>
 
+                {/* Airline Logos */}
+                <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography variant="h6">Aerolíneas (Logos)</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Stack spacing={2}>
+                            <Alert severity="info" sx={{ mb: 2 }}>
+                                Edita los logos de las aerolíneas. La clave debe coincidir con el nombre de la compañía en los vuelos.
+                            </Alert>
+                            {config.airlineLogos && Object.entries(config.airlineLogos).map(([airline, logoUrl], index) => (
+                                <Box key={index} sx={{ p: 2, border: '1px solid rgba(255,255,255,0.1)', borderRadius: 1, position: 'relative' }}>
+                                    <IconButton size="small" onClick={() => removeMapKey("airlineLogos", airline)} sx={{ position: 'absolute', top: 5, right: 5, color: 'error.main' }}>
+                                        <DeleteIcon fontSize="small" />
+                                    </IconButton>
+                                    <Stack spacing={1}>
+                                        <TextField 
+                                            fullWidth 
+                                            label="Nombre Aerolínea (Clave)" 
+                                            size="small" 
+                                            value={airline} 
+                                            onBlur={(e) => updateMapKey("airlineLogos", airline, e.target.value)}
+                                            helperText="Cambia esto para renombrar la aerolínea"
+                                        />
+                                        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                                            <TextField 
+                                                fullWidth 
+                                                label="URL del Logo" 
+                                                size="small" 
+                                                value={logoUrl as string} 
+                                                onChange={(e) => updateConfigField(`airlineLogos.${airline}`, e.target.value)} 
+                                            />
+                                            <Button
+                                                component="label"
+                                                variant="outlined"
+                                                startIcon={<CloudUploadIcon />}
+                                                sx={{ minWidth: 120, height: 40 }}
+                                            >
+                                                Subir
+                                                <input
+                                                    type="file"
+                                                    hidden
+                                                    accept="image/*"
+                                                    onChange={(e) => handleImageUpload(e, `airlineLogos.${airline}`)}
+                                                />
+                                            </Button>
+                                        </Box>
+                                        {(logoUrl as string) && (
+                                            <Box sx={{ mt: 1, p: 1, bgcolor: 'white', borderRadius: 1, width: 'fit-content' }}>
+                                                <img src={logoUrl as string} alt={airline} style={{ height: 40, maxWidth: 200, objectFit: 'contain' }} />
+                                            </Box>
+                                        )}
+                                    </Stack>
+                                </Box>
+                            ))}
+                            <Button startIcon={<AddIcon />} variant="outlined" onClick={() => addMapKey("airlineLogos", "Nueva Aerolínea", "")}>
+                                Añadir Aerolínea
+                            </Button>
+                        </Stack>
+                    </AccordionDetails>
+                </Accordion>
 
                 {/* Itinerary */}
                 <Accordion>
