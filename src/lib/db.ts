@@ -97,6 +97,9 @@ const TravelConfigSchema = new mongoose.Schema({
       amountEUR: Number,
       status: String,
       city: String,
+      date: String, // ISO date string preferred
+      image: String, // URL to image
+      showInCarousel: Boolean,
       note: String,
       coords: [Number],
       quality: Number

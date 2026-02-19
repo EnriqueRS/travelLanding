@@ -7,6 +7,7 @@ import CityCarousel from "../components/CityCarousel.tsx"
 import Itinerary from "../components/Itinerary.astro"
 import Expenses from "../components/Expenses.astro"
 import ExpensesToggle from "../components/ExpensesToggle.tsx"
+import ExpensesParallax from "../components/ExpensesParallax.tsx"
 import { getTravelConfig } from "../lib/config"
 
 const config = await getTravelConfig()
@@ -145,6 +146,7 @@ const defaultBanner =
     </section>
 
     <Expenses expensesData={cfg.expenses} />
+    <ExpensesParallax expensesData={cfg.expenses} client:only="react" />
     <FlightInfo
       flights={cfg.flights}
       airlineLogos={new Map(Object.entries(cfg.airlineLogos || {}))}
